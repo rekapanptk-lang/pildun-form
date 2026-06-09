@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tebak Skor Piala Dunia 2026</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+    .card{background:white;border-radius:20px;padding:36px;width:100%;max-width:480px;box-shadow:0 24px 64px rgba(0,0,0,0.4)}
+    .head{text-align:center;margin-bottom:28px}
+    .head .icon{font-size:52px;margin-bottom:8px}
+    .head h1{font-size:22px;color:#1a1a2e;font-weight:700}
+    .head p{font-size:13px;color:#888;margin-top:4px}
+    label{display:block;font-size:12px;font-weight:700;color:#555;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+    input,select{width:100%;padding:11px 14px;border:2px solid #e8e8e8;border-radius:10px;font-size:14px;margin-bottom:16px;outline:none;transition:border .2s;font-family:inherit;background:white}
+    input:focus,select:focus{border-color:#0f3460}
+    .score-row{display:flex;gap:12px;align-items:flex-start}
+    .score-row .vs{font-weight:700;color:#888;font-size:14px;white-space:nowrap;padding-top:28px}
+    .score-row>div{flex:1}
+    .team-label{font-size:11px;color:#0f3460;font-weight:700;margin-bottom:4px;text-align:center}
+    .score-row input{text-align:center;font-size:22px;font-weight:700;padding:10px}
+    .btn{width:100%;padding:14px;background:linear-gradient(135deg,#0f3460,#533483);color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;transition:opacity .2s;margin-top:4px}
+    .btn:hover{opacity:.9}
+    .btn:disabled{opacity:.5;cursor:not-allowed}
+    .info{background:#f0f4ff;border-left:4px solid #0f3460;padding:10px 14px;border-radius:6px;margin-bottom:20px;font-size:12px;color:#444;line-height:1.7}
+    .step{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+    .step .num{background:#0f3460;color:white;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+    .google-btn{width:100%;padding:13px;background:white;color:#444;border:2px solid #e0e0e0;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:box-shadow .2s}
+    .google-btn:hover{box-shadow:0 2px 10px rgba(0,0,0,0.15)}
+    .user-bar{display:flex;align-items:center;gap:10px;margin-bottom:20px;padding:10px 14px;background:#f9f9f9;border-radius:10px}
+    .avatar{width:36px;height:36px;border-radius:50%;background:#0f3460;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:16px;flex-shrink:0}
+    .change-btn{margin-left:auto;padding:4px 10px;border:1px solid #ddd;border-radius:6px;background:white;font-size:12px;cursor:pointer;color:#666}
+    #loginSection{display:block}
+    #formSection{display:none}
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="head">
+    <div class="icon">⚽</div>
+    <h1>Tebak Skor Piala Dunia 2026</h1>
+    <p>Isi tebakan & dapatkan notifikasi hasil di Google Calendar!</p>
+  </div>
+
+  <!-- LOGIN -->
+  <div id="loginSection">
+    <div class="info">
+      <div class="step"><span class="num">1</span> Login dengan akun Google kamu</div>
+      <div class="step"><span class="num">2</span> Isi tebakan skor pertandingan</div>
+      <div class="step"><span class="num">3</span> Izinkan notifikasi ke Google Calendar</div>
+    </div>
+    <button class="google-btn" onclick="loginGoogle()">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Lanjutkan dengan Google
+    </button>
+  </div>
+
+  <!-- FORM -->
+  <div id="formSection">
+    <div class="user-bar">
+      <div class="avatar" id="userAvatar">?</div>
+      <div>
+        <div style="font-weight:700;font-size:14px" id="userName">-</div>
+        <div style="font-size:12px;color:#888" id="userEmail">-</div>
+      </div>
+      <button class="change-btn" onclick="logout()">Ganti Akun</button>
+    </div>
+
+    <label>Pilih Pertandingan</label>
+    <select id="matchSelect" onchange="updateTeams()"></select>
+
+    <label>Tebakan Skor Kamu</label>
+    <div class="score-row">
+      <div>
+        <div class="team-label" id="teamALabel">Tim A</div>
+        <input type="number" id="scoreA" min="0" max="20" value="0">
+      </div>
+      <div class="vs">VS</div>
+      <div>
+        <div class="team-label" id="teamBLabel">Tim B</div>
+        <input type="number" id="scoreB" min="0" max="20" value="0">
+      </div>
+    </div>
+
+    <label>Nomor WhatsApp (opsional)</label>
+    <input type="tel" id="noHp" placeholder="08xxxxxxxxxx">
+
+    <button class="btn" id="submitBtn" onclick="handleSubmit()">
+      📅 Submit & Hubungkan Calendar
+    </button>
+  </div>
+</div>
+
+<script>
+  // ── Config pertandingan (diambil dari Apps Script) ──
+  const APPS_SCRIPT_URL = '%%APPS_SCRIPT_URL%%';
+
+  let matches     = [];
+  let currentUser = null;
+
+  // Load matches dari Apps Script
+  async function loadMatches() {
+    try {
+      const r = await fetch(APPS_SCRIPT_URL + '?action=getConfig');
+      const d = await r.json();
+      matches = d.data || [];
+    } catch(e) {
+      matches = [{ pertandingan: 'MATCH 1', timA: 'Tim A', timB: 'Tim B' }];
+    }
+    renderMatches();
+  }
+
+  function renderMatches() {
+    const sel = document.getElementById('matchSelect');
+    sel.innerHTML = matches.map((m, i) =>
+      `<option value="${i}">${m.pertandingan}</option>`
+    ).join('');
+    updateTeams();
+  }
+
+  function updateTeams() {
+    const idx = document.getElementById('matchSelect').value;
+    if (matches[idx]) {
+      document.getElementById('teamALabel').textContent = matches[idx].timA;
+      document.getElementById('teamBLabel').textContent = matches[idx].timB;
+    }
+  }
+
+  function loginGoogle() {
+    window.location.href = '/.netlify/functions/auth?state=login';
+  }
+
+  function logout() {
+    sessionStorage.removeItem('pildun_user');
+    currentUser = null;
+    document.getElementById('loginSection').style.display = 'block';
+    document.getElementById('formSection').style.display  = 'none';
+  }
+
+  function showForm(email, name) {
+    currentUser = { email, name };
+    sessionStorage.setItem('pildun_user', JSON.stringify(currentUser));
+    document.getElementById('loginSection').style.display = 'none';
+    document.getElementById('formSection').style.display  = 'block';
+    document.getElementById('userName').textContent   = name;
+    document.getElementById('userEmail').textContent  = email;
+    document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
+  }
+
+  function handleSubmit() {
+    if (!currentUser) return;
+    const idx  = document.getElementById('matchSelect').value;
+    const m    = matches[idx] || {};
+    const sA   = document.getElementById('scoreA').value;
+    const sB   = document.getElementById('scoreB').value;
+    const noHp = document.getElementById('noHp').value.trim();
+
+    document.getElementById('submitBtn').disabled    = true;
+    document.getElementById('submitBtn').textContent = '⏳ Memproses...';
+
+    // Encode semua data ke state parameter
+    const state = [
+      'calendar',
+      currentUser.email,
+      currentUser.name,
+      m.pertandingan || '',
+      m.timA || '',
+      m.timB || '',
+      sA,
+      sB,
+      noHp
+    ].join('|');
+
+    const calendarOAuthUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
+      + '?client_id=%%CLIENT_ID%%'
+      + '&redirect_uri=' + encodeURIComponent('%%BASE_URL%%/.netlify/functions/callback')
+      + '&response_type=code'
+      + '&scope=' + encodeURIComponent('https://www.googleapis.com/auth/calendar')
+      + '&access_type=offline'
+      + '&prompt=consent'
+      + '&state=' + encodeURIComponent(state);
+
+    window.location.href = calendarOAuthUrl;
+  }
+
+  // ── Init ──
+  window.onload = function() {
+    loadMatches();
+
+    // Cek apakah balik dari OAuth login
+    const params = new URLSearchParams(window.location.search);
+    const email  = params.get('email');
+    const name   = params.get('name');
+    const step   = params.get('step');
+
+    if (email && step === 'form') {
+      showForm(email, name || email);
+      window.history.replaceState({}, '', '/');
+      return;
+    }
+
+    // Cek sessionStorage
+    const saved = sessionStorage.getItem('pildun_user');
+    if (saved) {
+      const u = JSON.parse(saved);
+      showForm(u.email, u.name);
+    }
+  };
+</script>
+</body>
+</html>
