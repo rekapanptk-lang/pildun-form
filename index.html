@@ -125,19 +125,25 @@
       }
     }
 
-    /* ── GOOGLE BTN ── */
+    /* ── GOOGLE BTN (PREMIUM UPDATE) ── */
     .google-btn {
       width: 100%; padding: 13px;
-      background: white; color: #333;
-      border: none; border-radius: 12px;
-      font-size: 14px; font-weight: 600;
+      background: linear-gradient(145deg, #ffffff 0%, #e8e8e8 45%, #cfcfcf 100%);
+      color: #333;
+      border: 2px solid #d4af37;
+      border-radius: 12px;
+      font-size: 15px; font-weight: 700;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center; gap: 10px;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-      margin-top: auto; /* Taruh paling bawah content login */
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3), inset 0 2px 5px rgba(255,255,255,1);
+      margin-top: auto;
     }
-    .google-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,255,255,0.3); }
+    .google-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.5), inset 0 2px 5px rgba(255,255,255,1);
+      background: linear-gradient(145deg, #ffffff 0%, #f4f4f4 45%, #dcdcdc 100%);
+    }
 
     /* ── INPUTS INTERAKTIF ── */
     label {
@@ -387,7 +393,7 @@
     <div id="loginSection" class="fade-in">
       <div style="text-align:center; color:white; margin-bottom:30px">
         <h1 style="font-size:28px; letter-spacing:1px; margin: 0;"><img src="https://dash.takenupload.org/GIf-SMBT-NEW-340" alt="Sumbutogel GIF" style="max-width: 100%; height: auto;"></h1>
-        </div>
+      </div>
       <button class="google-btn" onclick="loginGoogle()">
         <svg width="20" height="20" viewBox="0 0 24 24">
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -420,7 +426,7 @@
       </div>
       <div class="error-msg" id="errMatch"></div>
 
-      <button class="btn" id="submitBtn" onclick="handleSubmit()">SUBMIT</button>
+      <button class="btn" id="submitBtn" onclick="handleSubmit()">KIRIM TEBAKAN SKOR SAYA</button>
     </div>
 
   </div>
@@ -528,7 +534,6 @@
   }
 
   function confirmMatch(i) {
-    // FIX: Ambil value, jika kosong ubah jadi 0 bray
     let sA = document.getElementById('scoreA-' + i).value;
     let sB = document.getElementById('scoreB-' + i).value;
     
@@ -571,7 +576,6 @@
       const card = document.getElementById('match-' + i);
       if (!card || !card.classList.contains('done')) return null;
       
-      // Ambil value, jika kosong (placeholder) anggap 0
       let sA = document.getElementById('scoreA-' + i)?.value;
       let sB = document.getElementById('scoreB-' + i)?.value;
       if(sA === "" || sA === undefined) sA = "0";
@@ -610,7 +614,7 @@
           window.location.href = '/success.html?status=success&name=' + encodeURIComponent(currentUser.name);
         } else {
           btn.disabled = false;
-          btn.textContent = 'SUBMIT';
+          btn.textContent = 'KIRIM TEBAKAN SKOR SAYA';
           alert('Gagal simpan data: ' + (saveData.error || 'Unknown'));
         }
         return;
