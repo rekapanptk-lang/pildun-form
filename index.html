@@ -56,17 +56,6 @@
     .card-content::-webkit-scrollbar { width: 4px; }
     .card-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
 
-    /* ── HEADER ── */
-    .head { text-align: center; margin-bottom: 20px; flex-shrink: 0; }
-    /* Menghapus trofi dari header */
-    .head h1 {
-      font-family: 'Oswald', sans-serif;
-      font-size: 22px; color: #fff;
-      letter-spacing: 1px; text-transform: uppercase;
-      line-height: 1.2; text-shadow: 0 2px 8px rgba(0,0,0,0.4);
-    }
-    .head p { font-size: 13px; color: rgba(255,255,255,0.75); margin-top: 6px; line-height: 1.5; }
-
     /* ── GOOGLE BTN (Sederhana dan Sentral) ── */
     .google-btn {
       width: 100%; padding: 13px;
@@ -77,8 +66,7 @@
       display: flex; align-items: center; justify-content: center; gap: 10px;
       transition: transform 0.15s, box-shadow 0.15s;
       box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-      /* Memberikan margin atas agar lebih di tengah secara vertikal */
-      margin-top: 100px;
+      /* margin-top dihapus agar bisa ter-center otomatis oleh flexbox */
     }
     .google-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
 
@@ -232,13 +220,16 @@
     /* ── SECTIONS ── */
     /* Splash section disembunyikan secara default */
     #splashSection { display: none; }
+    
     /* Login section akan ditampilkan dan diposisikan secara vertikal-center */
     #loginSection {
       display: none; /* JS akan mengubahnya menjadi flex */
       height: 100%;
+      width: 100%;
+      flex: 1; /* Membuat container ini mengisi seluruh ruang kosong secara vertikal */
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      justify-content: center; /* Center secara vertikal */
+      align-items: center; /* Center secara horizontal */
     }
     #formSection  { display: none; }
 
@@ -252,12 +243,6 @@
   <div class="card-bg"></div>
   <div class="card-overlay"></div>
   <div class="card-content">
-
-    <div class="head">
-      <h1 id="pageTitle">TEBAK SKOR PIALA DUNIA FIFA 2026</h1>
-      <p id="pageSubtitle">Ikuti event tebak skor untuk beberapa pertandingan pilihan di Piala Dunia 2026</p>
-    }
-    </div>
 
     <div id="loginSection">
       <button class="google-btn" onclick="loginGoogle()">
@@ -322,8 +307,12 @@
       const r = await fetch(APPS_SCRIPT_URL + '?action=getConfig');
       const d = await r.json();
       matches = d.data || [];
-      if (d.title)    document.getElementById('pageTitle').textContent    = d.title;
-      if (d.subtitle) document.getElementById('pageSubtitle').textContent = d.subtitle;
+      
+      // Tambah pengecekan karena ID sudah dihapus dari HTML
+      const titleEl = document.getElementById('pageTitle');
+      const subtitleEl = document.getElementById('pageSubtitle');
+      if (d.title && titleEl)    titleEl.textContent    = d.title;
+      if (d.subtitle && subtitleEl) subtitleEl.textContent = d.subtitle;
     } catch(e) { matches = []; }
   }
 
