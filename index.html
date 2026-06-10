@@ -1,3 +1,13 @@
+Siap bro!
+
+Sesuai *request*:
+
+1. **Box `user-bar` (Rekapan PTK & Ganti Akun) sudah dihapus total** dari HTML, CSS, maupun script-nya. Jadi mereka nggak akan bisa ganti akun lagi dari tampilan itu.
+2. **Semua textbox (User ID, WA, dan Skor) sekarang punya background merah solid** (`#990000`) dan nggak transparan lagi supaya nampak jelas saat diisi. Saya juga tambahkan sedikit *tweak* supaya kalau kena *autofill* (seperti tulisan "sumbu" di gambarmu), warna merahnya tetap dipertahankan.
+
+Ini *full code* terbarunya:
+
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -49,7 +59,6 @@
       overflow-y: auto;
       scrollbar-width: thin;
       scrollbar-color: rgba(255,255,255,0.2) transparent;
-      /* Untuk menengahkan konten secara vertikal, kita akan gunakan flexbox di card-content */
       display: flex;
       flex-direction: column;
     }
@@ -66,31 +75,8 @@
       display: flex; align-items: center; justify-content: center; gap: 10px;
       transition: transform 0.15s, box-shadow 0.15s;
       box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-      /* margin-top dihapus agar bisa ter-center otomatis oleh flexbox */
     }
     .google-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
-
-    /* ── USER BAR ── */
-    .user-bar {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 16px; padding: 10px 14px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 10px;
-    }
-    .avatar {
-      width: 34px; height: 34px; border-radius: 50%;
-      background: rgba(255,255,255,0.3);
-      display: flex; align-items: center; justify-content: center;
-      color: white; font-weight: 700; font-size: 15px; flex-shrink: 0;
-    }
-    .user-name  { font-weight: 700; font-size: 13px; color: white; }
-    .user-email { font-size: 11px; color: rgba(255,255,255,0.7); }
-    .change-btn {
-      margin-left: auto; padding: 4px 10px;
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 6px; background: transparent;
-      font-size: 11px; cursor: pointer; color: rgba(255,255,255,0.8);
-    }
 
     /* ── INPUTS ── */
     label {
@@ -100,27 +86,37 @@
     }
     input[type=text], input[type=tel] {
       width: 100%; padding: 11px 14px;
-      background: rgba(255,255,255,0.15);
-      border: 1.5px solid rgba(255,255,255,0.25);
+      background: #990000; /* Solid merah */
+      border: 1.5px solid rgba(255,255,255,0.4);
       border-radius: 10px; font-size: 14px; font-weight: 500;
       color: white; outline: none;
       transition: border 0.2s, background 0.2s;
       font-family: inherit; margin-bottom: 14px;
     }
+    /* Memastikan placeholder tetap kelihatan di atas merah */
     input[type=text]::placeholder,
-    input[type=tel]::placeholder { color: rgba(255,255,255,0.4); }
+    input[type=tel]::placeholder { color: rgba(255,255,255,0.6); }
+    
     input[type=text]:focus,
-    input[type=tel]:focus { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.2); }
+    input[type=tel]:focus { border-color: rgba(255,255,255,0.9); background: #b30000; }
+    
     input[type=number] {
       width: 100%; padding: 10px;
-      background: rgba(255,255,255,0.15);
-      border: 1.5px solid rgba(255,255,255,0.25);
+      background: #990000; /* Solid merah */
+      border: 1.5px solid rgba(255,255,255,0.4);
       border-radius: 10px;
       text-align: center; font-size: 24px; font-weight: 700;
       color: white; outline: none; font-family: inherit;
       transition: border 0.2s;
     }
-    input[type=number]:focus { border-color: rgba(255,255,255,0.7); }
+    input[type=number]:focus { border-color: rgba(255,255,255,0.9); background: #b30000; }
+
+    /* Fix untuk style autofill dari browser agar tetap nge-blend dengan tema */
+    input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 30px #990000 inset !important;
+      -webkit-text-fill-color: white !important;
+    }
+
     .error-msg { color: #ffb3b3; font-size: 11px; margin-top: -10px; margin-bottom: 12px; }
 
     /* ── MATCH CARDS (ACCORDION) ── */
@@ -218,18 +214,16 @@
     .divider { border: none; border-top: 1px solid rgba(255,255,255,0.15); margin: 14px 0; }
 
     /* ── SECTIONS ── */
-    /* Splash section disembunyikan secara default */
     #splashSection { display: none; }
     
-    /* Login section akan ditampilkan dan diposisikan secara vertikal-center */
     #loginSection {
-      display: none; /* JS akan mengubahnya menjadi flex */
+      display: none;
       height: 100%;
       width: 100%;
-      flex: 1; /* Membuat container ini mengisi seluruh ruang kosong secara vertikal */
+      flex: 1;
       flex-direction: column;
-      justify-content: center; /* Center secara vertikal */
-      align-items: center; /* Center secara horizontal */
+      justify-content: center;
+      align-items: center;
     }
     #formSection  { display: none; }
 
@@ -257,15 +251,6 @@
     </div>
 
     <div id="formSection">
-      <div class="user-bar">
-        <div class="avatar" id="userAvatar">?</div>
-        <div>
-          <div class="user-name"  id="userName">-</div>
-          <div class="user-email" id="userEmail">-</div>
-        </div>
-        <button class="change-btn" onclick="logout()">Ganti Akun</button>
-      </div>
-
       <label>User ID *</label>
       <input type="text" id="userId" placeholder="Minimal 4 karakter (huruf/angka)" maxlength="30">
       <div class="error-msg" id="errUserId"></div>
@@ -292,7 +277,6 @@
 
 <script>
   // URL untuk Apps Script, OAuth CLIENT_ID, dan URL dasar.
-  // Ganti dengan nilai yang benar dari deploy GAS Anda.
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1G85WVH53xRcoPsKNMlniRQXObUlvF47kegtaQlUptTnkclMngnWtRTApvVx4WwQ3/exec';
   const CLIENT_ID       = '69593145654-5c2n90v8f3cetmtjl91u7ua00rg7rub2.apps.googleusercontent.com';
   const BASE_URL        = 'https://pildun-form.vercel.app';
@@ -308,7 +292,6 @@
       const d = await r.json();
       matches = d.data || [];
       
-      // Tambah pengecekan karena ID sudah dihapus dari HTML
       const titleEl = document.getElementById('pageTitle');
       const subtitleEl = document.getElementById('pageSubtitle');
       if (d.title && titleEl)    titleEl.textContent    = d.title;
@@ -353,13 +336,11 @@
   function toggleMatch(i) {
     const card = document.getElementById('match-' + i);
 
-    // Tutup yang sebelumnya aktif
     if (activeMatch !== -1 && activeMatch !== i) {
       const prev = document.getElementById('match-' + activeMatch);
       if (prev) prev.classList.remove('active');
     }
 
-    // Toggle yang diklik
     if (activeMatch === i) {
       card.classList.remove('active');
       activeMatch = -1;
@@ -378,10 +359,8 @@
     const card = document.getElementById('match-' + i);
     const preview = document.getElementById('preview-' + i);
 
-    // Update preview
     preview.textContent = 'Tebakan: ' + sA + ' - ' + sB;
 
-    // Mark as done, tutup accordion
     card.classList.add('done');
     card.classList.remove('active');
     activeMatch = -1;
@@ -411,7 +390,6 @@
     document.getElementById('errWa').textContent     = errWA;
     if (errUID || errWA) return;
 
-    // Kumpulkan match yang sudah di-confirm (class 'done')
     const selected = matches.map((m, i) => {
       const card = document.getElementById('match-' + i);
       if (!card || !card.classList.contains('done')) return null;
@@ -432,13 +410,11 @@
     btn.disabled = true;
     btn.textContent = '⏳ Memproses...';
 
-    // Cek apakah email sudah authorized di DB_Auth
     try {
       const checkRes = await fetch(APPS_SCRIPT_URL + '?action=checkEmail&email=' + encodeURIComponent(currentUser.email));
       const checkData = await checkRes.json();
 
       if (checkData.authorized) {
-        // Sudah authorized — langsung save tanpa OAuth Calendar
         const saveRes = await fetch(APPS_SCRIPT_URL + '?action=saveOnly&' + new URLSearchParams({
           email: currentUser.email,
           nama:  currentUser.name,
@@ -456,10 +432,9 @@
         return;
       }
     } catch(e) {
-      // Kalau cek gagal, lanjut ke OAuth flow biasa
+      // Ignore
     }
 
-    // Belum authorized — OAuth Calendar
     const state = encodeURIComponent([
       'calendar',
       currentUser.email,
@@ -487,7 +462,6 @@
     });
     const target = document.getElementById(id);
     if (target) { 
-        // Menggunakan flex untuk login section agar sentral
         if (id === 'loginSection') {
             target.style.display = 'flex';
         } else {
@@ -502,17 +476,7 @@
     currentUser = { email, name };
     localStorage.setItem('pildun_user', JSON.stringify(currentUser));
     showSection('formSection');
-    document.getElementById('userName').textContent   = name;
-    document.getElementById('userEmail').textContent  = email;
-    document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
     renderMatches();
-  }
-
-  // ── Logout ──
-  function logout() {
-    localStorage.removeItem('pildun_user');
-    currentUser = null;
-    showSection('loginSection');
   }
 
   // ── Google Login ──
@@ -522,10 +486,8 @@
 
   // ── Init ──
   window.onload = async function() {
-    // Load config dulu sebelum cek localStorage
     await loadConfig();
 
-    // Cek apakah balik dari OAuth login
     const params = new URLSearchParams(window.location.search);
     const email  = params.get('email');
     const name   = params.get('name');
@@ -533,15 +495,15 @@
 
     if (email && step === 'form') {
       window.history.replaceState({}, '', '/');
-      // Tunggu matches loaded dulu
       await new Promise(r => setTimeout(r, 1500));
       showForm(email, name || email, true);
       return;
     }
 
-    // Tampilkan login screen sentral secara langsung
     showSection('loginSection');
   };
 </script>
 </body>
 </html>
+
+```
