@@ -476,7 +476,8 @@
 
   // ── Init ──
   window.onload = async function() {
-    const params = newSearchParams(window.location.search);
+    // FIX: URLSearchParams yang benar agar tidak error
+    const params = new URLSearchParams(window.location.search);
     const email  = params.get('email');
     const name   = params.get('name');
     const step   = params.get('step');
@@ -487,7 +488,7 @@
       await loadConfig(); 
       showForm(email, name || email, true);
     } else {
-      // Tombol Google langsung muncul, data ditarik di belakang
+      // Tombol Google langsung muncul instan
       showSection('loginSection');
       loadConfig();
     }
