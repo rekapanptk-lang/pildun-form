@@ -76,14 +76,13 @@
     }
     input[type=text], input[type=tel] {
       width: 100%; padding: 11px 14px;
-      background: #990000; /* Solid merah */
+      background: #990000;
       border: 1.5px solid rgba(255,255,255,0.4);
       border-radius: 10px; font-size: 14px; font-weight: 500;
       color: white; outline: none;
       transition: border 0.2s, background 0.2s;
       font-family: inherit; margin-bottom: 14px;
     }
-    /* Memastikan placeholder tetap kelihatan di atas merah */
     input[type=text]::placeholder,
     input[type=tel]::placeholder { color: rgba(255,255,255,0.6); }
     
@@ -92,7 +91,7 @@
     
     input[type=number] {
       width: 100%; padding: 10px;
-      background: #990000; /* Solid merah */
+      background: #990000;
       border: 1.5px solid rgba(255,255,255,0.4);
       border-radius: 10px;
       text-align: center; font-size: 24px; font-weight: 700;
@@ -101,7 +100,6 @@
     }
     input[type=number]:focus { border-color: rgba(255,255,255,0.9); background: #b30000; }
 
-    /* Fix untuk style autofill dari browser agar tetap nge-blend dengan tema */
     input:-webkit-autofill {
       -webkit-box-shadow: 0 0 0 30px #990000 inset !important;
       -webkit-text-fill-color: white !important;
@@ -149,7 +147,7 @@
     .match-title { font-weight: 700; font-size: 13px; color: white; flex: 1; }
     .match-time  { font-size: 10px; color: rgba(255,255,255,0.55); white-space: nowrap; }
 
-    /* Preview skor (saat card done tapi tidak active) */
+    /* Preview skor */
     .match-preview {
       display: none;
       padding: 4px 14px 10px;
@@ -206,16 +204,18 @@
     /* ── SECTIONS ── */
     #splashSection { display: none; }
     
-    #loginSection {
+    #loginSection, #formSection {
       display: none;
       height: 100%;
       width: 100%;
       flex: 1;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
     }
-    #formSection  { display: none; }
+    
+    #loginSection {
+      align-items: center; /* Center horizontally only for login button */
+    }
 
     /* ── FADE TRANSITION ── */
     .fade-in { animation: fadeIn 0.4s ease; }
@@ -452,7 +452,7 @@
     });
     const target = document.getElementById(id);
     if (target) { 
-        if (id === 'loginSection') {
+        if (id === 'loginSection' || id === 'formSection') {
             target.style.display = 'flex';
         } else {
             target.style.display = 'block';
@@ -476,21 +476,21 @@
 
   // ── Init ──
   window.onload = async function() {
-    await loadConfig();
-
-    const params = new URLSearchParams(window.location.search);
+    const params = newSearchParams(window.location.search);
     const email  = params.get('email');
     const name   = params.get('name');
     const step   = params.get('step');
 
     if (email && step === 'form') {
       window.history.replaceState({}, '', '/');
-      await new Promise(r => setTimeout(r, 1500));
+      // Tunggu load data dulu sebelum masukin ke form
+      await loadConfig(); 
       showForm(email, name || email, true);
-      return;
+    } else {
+      // Tombol Google langsung muncul, data ditarik di belakang
+      showSection('loginSection');
+      loadConfig();
     }
-
-    showSection('loginSection');
   };
 </script>
 </body>
