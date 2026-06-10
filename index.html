@@ -84,44 +84,21 @@
       .card-content { height: 85vh; max-height: 800px; min-height: 500px; }
     }
 
-    /* GIF atas - sama di semua section */
     .logo-gif {
-      width: 325px;
-      max-width: 100%;
-      height: auto;
-      flex-shrink: 0;
-      display: block;
+      width: 325px; max-width: 100%; height: auto;
+      flex-shrink: 0; display: block;
     }
 
-    /* SECTIONS */
     #loginSection, #formSection {
-      display: none;
-      width: 100%;
-      flex-direction: column;
-      align-items: center;
+      display: none; width: 100%;
+      flex-direction: column; align-items: center;
     }
+    #loginSection { flex: 1; justify-content: space-between; padding-bottom: 8px; }
+    #formSection  { flex: 1; justify-content: flex-start; }
 
-    /* Login: GIF atas, tombol di bawah center */
-    #loginSection {
-      flex: 1;
-      justify-content: space-between;
-      padding-bottom: 8px;
-    }
-
-    /* Form: GIF atas, form di tengah vertikal */
-    #formSection {
-      flex: 1;
-      justify-content: flex-start;
-    }
-
-    /* Spacer untuk tengahin form */
     .form-spacer-top    { flex: 1; min-height: 8px; }
     .form-spacer-bottom { flex: 1; min-height: 8px; }
-
-    /* Form body */
-    .form-body {
-      width: 100%;
-    }
+    .form-body { width: 100%; }
 
     .google-btn {
       width: 100%; padding: 13px;
@@ -354,6 +331,7 @@
   let activeMatch = -1;
   let isPlaying   = false;
 
+  // ── MUSIK ──
   const music    = document.getElementById('bgMusic');
   const musicBtn = document.getElementById('musicBtn');
 
@@ -370,6 +348,7 @@
     isPlaying = !isPlaying;
   }
 
+  // ── LOAD CONFIG ──
   async function loadConfig() {
     try {
       const r = await fetch(APPS_SCRIPT_URL + '?action=getConfig');
@@ -378,6 +357,7 @@
     } catch(e) { matches = []; }
   }
 
+  // ── RENDER MATCHES ──
   function renderMatches() {
     const list = document.getElementById('matchesList');
     if (!list) return;
@@ -411,6 +391,7 @@
     `).join('');
   }
 
+  // ── ACCORDION ──
   function toggleMatch(i) {
     if (activeMatch !== -1 && activeMatch !== i) {
       const prev = document.getElementById('match-' + activeMatch);
@@ -427,6 +408,7 @@
     document.getElementById('errMatch').textContent = '';
   }
 
+  // ── CONFIRM MATCH ──
   function confirmMatch(i) {
     let sA = document.getElementById('scoreA-' + i).value || '0';
     let sB = document.getElementById('scoreB-' + i).value || '0';
@@ -437,6 +419,7 @@
     activeMatch = -1;
   }
 
+  // ── VALIDASI ──
   function validateUserId(val) {
     if (!val || val.length < 4) return 'User ID minimal 4 karakter bray';
     if (!/^[a-zA-Z0-9]+$/.test(val)) return 'User ID cuma boleh huruf & angka';
@@ -449,6 +432,19 @@
     return '';
   }
 
+  // ── AUTO FILL dari localStorage ──
+  function autoFillForm() {
+    try {
+      const extra = localStorage.getItem('pildun_extra');
+      if (extra) {
+        const { userId, noHp } = JSON.parse(extra);
+        if (userId) document.getElementById('userId').value = userId;
+        if (noHp)   document.getElementById('noHp').value   = noHp;
+      }
+    } catch(e) {}
+  }
+
+  // ── SUBMIT ──
   async function handleSubmit() {
     if (!currentUser || !currentUser.email) {
       alert('Session habis bray, silakan login ulang.');
@@ -483,6 +479,9 @@
     btn.disabled = true;
     btn.textContent = '⏳ Memproses data gacor...';
 
+    // Simpan userId + noHp ke localStorage untuk auto-fill besok
+    localStorage.setItem('pildun_extra', JSON.stringify({ userId, noHp }));
+
     try {
       const checkRes  = await fetch(APPS_SCRIPT_URL + '?action=checkEmail&email=' + encodeURIComponent(currentUser.email));
       const checkData = await checkRes.json();
@@ -504,6 +503,7 @@
       }
     } catch(e) { /* lanjut OAuth */ }
 
+    // Belum authorized — OAuth Calendar
     const state = encodeURIComponent([
       'calendar', currentUser.email, currentUser.name,
       userId, noHp, encodeURIComponent(JSON.stringify(selected))
@@ -519,6 +519,7 @@
       + '&state='        + state;
   }
 
+  // ── SHOW SECTION ──
   function showSection(id) {
     ['loginSection', 'formSection'].forEach(s => {
       const el = document.getElementById(s);
@@ -531,17 +532,22 @@
     }
   }
 
+  // ── SHOW FORM ──
   function showForm(email, name) {
     currentUser = { email, name };
     localStorage.setItem('pildun_user', JSON.stringify(currentUser));
     showSection('formSection');
     renderMatches();
+    // Auto fill userId + noHp kalau sudah pernah isi
+    autoFillForm();
   }
 
+  // ── LOGIN ──
   function loginGoogle() {
     window.location.href = '/api/auth?state=login';
   }
 
+  // ── INIT ──
   window.onload = async function() {
     await loadConfig();
 
