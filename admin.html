@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Tebak Skor</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #0f0f0f; color: #eee; min-height: 100vh; padding: 24px; }
+
+    h1 { font-size: 20px; color: #ffdc00; margin-bottom: 24px; }
+    h2 { font-size: 15px; color: #aaa; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 1px; }
+
+    .panel { background: #1a1a1a; border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1px solid #333; }
+
+    label { display: block; font-size: 12px; color: #888; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+    input, textarea, select {
+      width: 100%; padding: 10px 14px;
+      background: #2a2a2a; border: 1px solid #444;
+      border-radius: 8px; font-size: 14px; color: #eee;
+      outline: none; font-family: inherit;
+      transition: border 0.2s; margin-bottom: 14px;
+    }
+    input:focus, textarea:focus, select:focus { border-color: #ffdc00; }
+    textarea { min-height: 80px; resize: vertical; }
+
+    .row { display: flex; gap: 14px; flex-wrap: wrap; }
+    .col { flex: 1; min-width: 200px; }
+
+    .btn {
+      padding: 11px 24px;
+      background: #ffdc00; color: #000;
+      border: none; border-radius: 8px;
+      font-size: 14px; font-weight: 700;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-red { background: #cc0000; color: white; }
+
+    .result {
+      margin-top: 14px; padding: 12px 16px;
+      border-radius: 8px; font-size: 13px; display: none;
+    }
+    .result.ok  { background: #1a3a1a; color: #4caf50; border: 1px solid #2e7d32; }
+    .result.err { background: #3a1a1a; color: #ef5350; border: 1px solid #c62828; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { background: #222; padding: 10px 12px; text-align: left; color: #888; font-size: 12px; border-bottom: 1px solid #333; }
+    td { padding: 10px 12px; border-bottom: 1px solid #222; color: #ddd; }
+    tr:last-child td { border-bottom: none; }
+    .badge { padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+    .badge.ok  { background: #1a3a1a; color: #4caf50; }
+    .badge.no  { background: #3a1a1a; color: #ef5350; }
+
+    .stat { display: inline-block; background: #222; border-radius: 8px; padding: 12px 20px; margin-right: 12px; margin-bottom: 12px; }
+    .stat .n { font-size: 28px; font-weight: 700; color: #ffdc00; }
+    .stat .l { font-size: 12px; color: #888; margin-top: 2px; }
+
+    .loading { color: #888; font-size: 13px; padding: 20px; text-align: center; }
+  </style>
+</head>
+<body>
+
+<h1>⚽ Admin Panel — Tebak Skor Piala Dunia</h1>
+
+<!-- STATS -->
+<div id="statsBox">
+  <div class="loading">⏳ Memuat data...</div>
+</div>
+
+<!-- KIRIM EVENT -->
+<div class="panel">
+  <h2>📅 Kirim Notifikasi ke Calendar</h2>
+
+  <label>Kirim ke</label>
+  <select id="mode" onchange="toggleSpecific()">
+    <option value="all">Semua user (authorized)</option>
+    <option value="one">Email tertentu</option>
+  </select>
+
+  <div id="specificWrap" style="display:none">
+    <label>Email target</label>
+    <input type="email" id="specific" placeholder="email@gmail.com">
+  </div>
+
+  <label>Judul Event *</label>
+  <input type="text" id="evTitle" placeholder="Contoh: ⚽ Brasil VS Argentina — Hasil Pertandingan!">
+
+  <div class="row">
+    <div class="col">
+      <label>Waktu Mulai *</label>
+      <input type="datetime-local" id="evStart">
+    </div>
+    <div class="col">
+      <label>Waktu Selesai *</label>
+      <input type="datetime-local" id="evEnd">
+    </div>
+  </div>
+
+  <label>Deskripsi (opsional)</label>
+  <textarea id="evDesc" placeholder="Detail event..."></textarea>
+
+  <button class="btn" id="sendBtn" onclick="sendEvent()">📤 Kirim Sekarang</button>
+  <div class="result" id="sendResult"></div>
+</div>
+
+<!-- USER LIST -->
+<div class="panel">
+  <h2>👥 Daftar User</h2>
+  <div id="userTable"><div class="loading">⏳ Memuat...</div></div>
+</div>
+
+<script>
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1G85WVH53xRcoPsKNMlniRQXObUlvF47kegtaQlUptTnkclMngnWtRTApvVx4WwQ3/exec';
+
+  // Set default datetime
+  const now   = new Date();
+  const later = new Date(now.getTime() + 7200000);
+  const fmt   = d => d.toISOString().slice(0, 16);
+  document.getElementById('evStart').value = fmt(now);
+  document.getElementById('evEnd').value   = fmt(later);
+
+  function toggleSpecific() {
+    const mode = document.getElementById('mode').value;
+    document.getElementById('specificWrap').style.display = mode === 'one' ? 'block' : 'none';
+  }
+
+  // Load user list dari Apps Script
+  async function loadUsers() {
+    try {
+      const r = await fetch(APPS_SCRIPT_URL + '?action=getUsers');
+      const d = await r.json();
+
+      const users     = d.users || [];
+      const totalAuth = users.filter(u => u.status === 'authorized').length;
+
+      // Stats
+      document.getElementById('statsBox').innerHTML = `
+        <div class="stat"><div class="n">${users.length}</div><div class="l">Total User</div></div>
+        <div class="stat"><div class="n">${totalAuth}</div><div class="l">Calendar Terhubung</div></div>
+      `;
+
+      // Table
+      if (!users.length) {
+        document.getElementById('userTable').innerHTML = '<div class="loading">Belum ada user terdaftar</div>';
+        return;
+      }
+
+      document.getElementById('userTable').innerHTML = `
+        <table>
+          <thead>
+            <tr><th>#</th><th>Email</th><th>Nama</th><th>User ID</th><th>WA</th><th>Status</th><th>Terdaftar</th></tr>
+          </thead>
+          <tbody>
+            ${users.map((u, i) => `
+              <tr>
+                <td>${i + 1}</td>
+                <td>${u.email}</td>
+                <td>${u.nama || '-'}</td>
+                <td>${u.userId || '-'}</td>
+                <td>${u.wa || '-'}</td>
+                <td><span class="badge ${u.status === 'authorized' ? 'ok' : 'no'}">${u.status}</span></td>
+                <td>${u.timestamp || '-'}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    } catch(e) {
+      document.getElementById('statsBox').innerHTML  = '<div class="loading" style="color:#ef5350">Gagal load data</div>';
+      document.getElementById('userTable').innerHTML = '<div class="loading" style="color:#ef5350">Error: ' + e.message + '</div>';
+    }
+  }
+
+  // Kirim event
+  async function sendEvent() {
+    const title    = document.getElementById('evTitle').value.trim();
+    const start    = document.getElementById('evStart').value;
+    const end      = document.getElementById('evEnd').value;
+    const desc     = document.getElementById('evDesc').value.trim();
+    const mode     = document.getElementById('mode').value;
+    const specific = document.getElementById('specific').value.trim();
+
+    if (!title || !start || !end) {
+      showResult('err', '❌ Judul dan waktu wajib diisi.');
+      return;
+    }
+    if (mode === 'one' && !specific) {
+      showResult('err', '❌ Masukkan email target.');
+      return;
+    }
+
+    const btn = document.getElementById('sendBtn');
+    btn.disabled = true;
+    btn.textContent = '⏳ Mengirim...';
+
+    try {
+      const params = new URLSearchParams({ action: 'sendEvent', title, start, end, desc, mode, specific });
+      const r      = await fetch(APPS_SCRIPT_URL + '?' + params);
+      const d      = await r.json();
+
+      if (d.success) {
+        showResult('ok', '✅ Berhasil kirim ke ' + d.sent + ' user! ' + (d.failed > 0 ? '(' + d.failed + ' gagal)' : ''));
+      } else {
+        showResult('err', '❌ Error: ' + (d.error || 'Unknown'));
+      }
+    } catch(e) {
+      showResult('err', '❌ ' + e.message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '📤 Kirim Sekarang';
+    }
+  }
+
+  function showResult(type, msg) {
+    const el = document.getElementById('sendResult');
+    el.className     = 'result ' + type;
+    el.innerHTML     = msg;
+    el.style.display = 'block';
+  }
+
+  // Init
+  loadUsers();
+</script>
+</body>
+</html>
