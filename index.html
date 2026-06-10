@@ -522,8 +522,8 @@
 
   // ── Init ──
   window.onload = async function() {
-    // Load config di background (opsional, jika masih diperlukan)
-    loadConfig();
+    // Load config dulu sebelum cek localStorage
+    await loadConfig();
 
     // Cek apakah balik dari OAuth login
     const params = new URLSearchParams(window.location.search);
