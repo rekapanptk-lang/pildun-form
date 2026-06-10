@@ -65,21 +65,26 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
+      padding: 16px 20px 28px;
     }
 
-    @media (min-width: 481px) {
-      body { padding: 20px; }
-      .card { height: auto; border-radius: 20px; }
-      .card-content { height: 85vh; max-height: 800px; }
-    }
-
+    /* GIF di atas */
     .logo-gif {
       width: 325px;
       max-width: 100%;
       height: auto;
+      flex-shrink: 0;
+      margin-bottom: 0;
+    }
+
+    /* Centang + tulisan di tengah sisa ruang */
+    .center-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
     }
 
     .success-icon {
@@ -104,6 +109,12 @@
       text-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
 
+    @media (min-width: 481px) {
+      body { padding: 20px; }
+      .card { height: auto; border-radius: 20px; }
+      .card-content { height: 85vh; max-height: 800px; }
+    }
+
     .fade-in { animation: fadeIn 0.5s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   </style>
@@ -116,15 +127,20 @@
   <a href="https://sumbu.link" class="close-btn" title="Tutup">✕</a>
 
   <div class="card-content fade-in">
+
+    <!-- GIF di atas -->
     <img src="https://dash.takenupload.org/GIf-SMBT-NEW-340" alt="Sumbutogel" class="logo-gif">
 
-    <div class="success-icon">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="20 6 9 17 4 12"></polyline>
-      </svg>
+    <!-- Centang + Berhasil di tengah sisa ruang -->
+    <div class="center-content">
+      <div class="success-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <h1 class="success-title">Berhasil!</h1>
     </div>
 
-    <h1 class="success-title">Berhasil!</h1>
   </div>
 </div>
 </body>
