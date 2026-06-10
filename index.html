@@ -18,7 +18,7 @@
       background: #1a0000;
     }
 
-    /* ── CARD dengan background image + overlay ── */
+    /* ── CARD ── */
     .card {
       position: relative;
       width: 100%;
@@ -28,80 +28,97 @@
       box-shadow: 0 32px 80px rgba(0,0,0,0.6);
     }
 
-    /* Background image layer */
     .card-bg {
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background-image: url('bg.jpg');
       background-size: cover;
       background-position: center;
       z-index: 0;
     }
 
-    /* Gradient overlay merah */
     .card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        160deg,
-        rgba(200, 0, 0, 0.82) 0%,
-        rgba(140, 0, 0, 0.88) 40%,
-        rgba(80, 0, 0, 0.93) 100%
-      );
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(200,0,0,0.82) 0%, rgba(140,0,0,0.88) 40%, rgba(80,0,0,0.93) 100%);
       z-index: 1;
     }
 
-    /* Konten di atas overlay */
     .card-content {
-      position: relative;
-      z-index: 2;
+      position: relative; z-index: 2;
       padding: 32px 28px 28px;
-      max-height: 90vh;
+      height: 620px;
       overflow-y: auto;
       scrollbar-width: thin;
       scrollbar-color: rgba(255,255,255,0.2) transparent;
     }
     .card-content::-webkit-scrollbar { width: 4px; }
-    .card-content::-webkit-scrollbar-track { background: transparent; }
     .card-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
 
     /* ── HEADER ── */
-    .head { text-align: center; margin-bottom: 24px; }
+    .head { text-align: center; margin-bottom: 20px; }
     .head .logo { font-size: 52px; margin-bottom: 6px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); }
     .head h1 {
       font-family: 'Oswald', sans-serif;
-      font-size: 22px;
-      color: #fff;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      line-height: 1.2;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      font-size: 22px; color: #fff;
+      letter-spacing: 1px; text-transform: uppercase;
+      line-height: 1.2; text-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
-    .head p {
-      font-size: 13px;
-      color: rgba(255,255,255,0.75);
-      margin-top: 6px;
-      line-height: 1.5;
+    .head p { font-size: 13px; color: rgba(255,255,255,0.75); margin-top: 6px; line-height: 1.5; }
+
+    /* ── SPLASH SCREEN ── */
+    #splashSection { display: block; }
+    .splash-anim {
+      text-align: center;
+      padding: 20px 0 28px;
+    }
+    .splash-anim .ball {
+      font-size: 64px;
+      display: inline-block;
+      animation: ballBounce 0.8s ease-in-out infinite alternate;
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
+    }
+    @keyframes ballBounce {
+      from { transform: translateY(0px) rotate(0deg); }
+      to   { transform: translateY(-18px) rotate(20deg); }
+    }
+    .splash-text {
+      font-family: 'Oswald', sans-serif;
+      font-size: 15px; color: rgba(255,255,255,0.8);
+      letter-spacing: 2px; text-transform: uppercase;
+      margin-top: 16px;
+      animation: fadeInOut 1.5s ease-in-out infinite;
+    }
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.4; }
+      50%       { opacity: 1; }
     }
 
     /* ── STEP INFO ── */
     .info {
       background: rgba(255,255,255,0.12);
       border-left: 3px solid rgba(255,255,255,0.5);
-      padding: 10px 14px;
-      border-radius: 8px;
-      margin-bottom: 20px;
+      padding: 10px 14px; border-radius: 8px; margin-bottom: 20px;
     }
     .step { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; font-size: 12px; color: rgba(255,255,255,0.85); }
     .step:last-child { margin-bottom: 0; }
     .step .num {
-      background: rgba(255,255,255,0.25);
-      color: white;
-      width: 20px; height: 20px;
-      border-radius: 50%;
+      background: rgba(255,255,255,0.25); color: white;
+      width: 20px; height: 20px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-size: 11px; font-weight: 700; flex-shrink: 0;
     }
+
+    /* ── TOMBOL TEBAK SKOR (di splash) ── */
+    .btn-tebak {
+      width: 100%; padding: 15px;
+      background: linear-gradient(135deg, #ff4444 0%, #cc0000 60%, #990000 100%);
+      color: white; border: none; border-radius: 10px;
+      font-size: 16px; font-weight: 700; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(200,0,0,0.5);
+      letter-spacing: 0.5px;
+      transition: transform 0.15s, box-shadow 0.15s;
+      margin-top: 8px;
+    }
+    .btn-tebak:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(200,0,0,0.6); }
 
     /* ── GOOGLE BTN ── */
     .google-btn {
@@ -119,69 +136,79 @@
     /* ── USER BAR ── */
     .user-bar {
       display: flex; align-items: center; gap: 10px;
-      margin-bottom: 20px; padding: 10px 14px;
+      margin-bottom: 16px; padding: 10px 14px;
       background: rgba(255,255,255,0.15);
       border-radius: 10px;
-      backdrop-filter: blur(4px);
     }
     .avatar {
-      width: 36px; height: 36px; border-radius: 50%;
+      width: 34px; height: 34px; border-radius: 50%;
       background: rgba(255,255,255,0.3);
       display: flex; align-items: center; justify-content: center;
-      color: white; font-weight: 700; font-size: 16px; flex-shrink: 0;
+      color: white; font-weight: 700; font-size: 15px; flex-shrink: 0;
     }
-    .user-name  { font-weight: 700; font-size: 14px; color: white; }
-    .user-email { font-size: 12px; color: rgba(255,255,255,0.7); }
+    .user-name  { font-weight: 700; font-size: 13px; color: white; }
+    .user-email { font-size: 11px; color: rgba(255,255,255,0.7); }
     .change-btn {
       margin-left: auto; padding: 4px 10px;
       border: 1px solid rgba(255,255,255,0.3);
       border-radius: 6px; background: transparent;
-      font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8);
-      transition: background 0.15s;
+      font-size: 11px; cursor: pointer; color: rgba(255,255,255,0.8);
     }
-    .change-btn:hover { background: rgba(255,255,255,0.15); }
 
-    /* ── LABELS & INPUTS ── */
+    /* ── INPUTS ── */
     label {
       display: block; font-size: 11px; font-weight: 700;
       color: rgba(255,255,255,0.8); margin-bottom: 5px;
       text-transform: uppercase; letter-spacing: 0.6px;
     }
-    input[type=text], input[type=tel], input[type=number] {
+    input[type=text], input[type=tel] {
       width: 100%; padding: 11px 14px;
       background: rgba(255,255,255,0.15);
       border: 1.5px solid rgba(255,255,255,0.25);
       border-radius: 10px; font-size: 14px; font-weight: 500;
       color: white; outline: none;
       transition: border 0.2s, background 0.2s;
-      font-family: inherit; margin-bottom: 16px;
+      font-family: inherit; margin-bottom: 14px;
     }
     input[type=text]::placeholder,
-    input[type=tel]::placeholder  { color: rgba(255,255,255,0.4); }
+    input[type=tel]::placeholder { color: rgba(255,255,255,0.4); }
     input[type=text]:focus,
-    input[type=tel]:focus         { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.2); }
-    input[type=number] { text-align: center; font-size: 24px; font-weight: 700; padding: 10px; margin-bottom: 0; }
-    input[type=number]:focus { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.2); }
-    .error-msg { color: #ffb3b3; font-size: 11px; margin-top: -12px; margin-bottom: 12px; }
+    input[type=tel]:focus { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.2); }
+    input[type=number] {
+      width: 100%; padding: 10px;
+      background: rgba(255,255,255,0.15);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-radius: 10px;
+      text-align: center; font-size: 24px; font-weight: 700;
+      color: white; outline: none; font-family: inherit;
+      transition: border 0.2s;
+    }
+    input[type=number]:focus { border-color: rgba(255,255,255,0.7); }
+    .error-msg { color: #ffb3b3; font-size: 11px; margin-top: -10px; margin-bottom: 12px; }
 
-    /* ── MATCH CARDS ── */
-    .matches-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+    /* ── MATCH CARDS (ACCORDION) ── */
+    .matches-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
 
     .match-card {
       background: rgba(255,255,255,0.1);
       border: 1.5px solid rgba(255,255,255,0.2);
       border-radius: 12px; overflow: hidden;
-      transition: border-color 0.2s, background 0.2s;
       cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
     }
-    .match-card.selected {
+    .match-card.active {
       border-color: rgba(255,255,255,0.7);
-      background: rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.16);
+    }
+    .match-card.done {
+      border-color: rgba(255,220,0,0.5);
+      background: rgba(255,200,0,0.08);
     }
 
     .match-header {
       display: flex; align-items: center; gap: 10px;
-      padding: 12px 14px;
+      padding: 11px 14px;
+      user-select: none;
     }
     .match-checkbox {
       width: 18px; height: 18px; flex-shrink: 0;
@@ -190,69 +217,76 @@
       display: flex; align-items: center; justify-content: center;
       transition: all 0.2s;
     }
-    .match-card.selected .match-checkbox {
-      background: white;
-      border-color: white;
-    }
-    .match-checkbox-tick {
-      color: #c00; font-size: 12px; font-weight: 900;
+    .match-card.active .match-checkbox,
+    .match-card.done  .match-checkbox { background: white; border-color: white; }
+    .match-checkbox-tick { color: #c00; font-size: 11px; font-weight: 900; display: none; }
+    .match-card.active .match-checkbox-tick,
+    .match-card.done  .match-checkbox-tick { display: block; }
+
+    .match-title { font-weight: 700; font-size: 13px; color: white; flex: 1; }
+    .match-time  { font-size: 10px; color: rgba(255,255,255,0.55); white-space: nowrap; }
+
+    /* Preview skor (saat card done tapi tidak active) */
+    .match-preview {
       display: none;
+      padding: 4px 14px 10px;
+      font-size: 12px; color: rgba(255,220,0,0.9);
+      font-weight: 600;
     }
-    .match-card.selected .match-checkbox-tick { display: block; }
+    .match-card.done:not(.active) .match-preview { display: block; }
 
-    .match-title {
-      font-weight: 700; font-size: 13px; color: white;
-      flex: 1;
-    }
-    .match-time {
-      font-size: 11px; color: rgba(255,255,255,0.6);
-    }
-
-    /* Score input row */
+    /* Score input section */
     .score-section {
       display: none;
-      padding: 0 14px 14px;
+      padding: 4px 14px 14px;
     }
-    .match-card.selected .score-section { display: block; }
+    .match-card.active .score-section { display: block; }
 
-    .score-row {
-      display: flex; align-items: center; gap: 10px;
-    }
+    .score-row { display: flex; align-items: center; gap: 10px; }
     .score-col { flex: 1; text-align: center; }
     .team-label {
-      font-size: 11px; font-weight: 700;
-      color: rgba(255,255,255,0.8);
-      margin-bottom: 6px;
+      font-size: 10px; font-weight: 700;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 5px;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .vs-badge {
       background: rgba(255,255,255,0.2);
-      color: white; font-weight: 800; font-size: 13px;
-      padding: 6px 10px; border-radius: 8px;
+      color: white; font-weight: 800; font-size: 12px;
+      padding: 5px 8px; border-radius: 8px;
       flex-shrink: 0; align-self: center; margin-top: 18px;
     }
+    .btn-confirm {
+      width: 100%; padding: 9px;
+      background: rgba(255,255,255,0.2);
+      color: white; border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 8px; font-size: 13px; font-weight: 600;
+      cursor: pointer; margin-top: 10px;
+      transition: background 0.15s;
+    }
+    .btn-confirm:hover { background: rgba(255,255,255,0.3); }
 
     /* ── SUBMIT BTN ── */
     .btn {
-      width: 100%; padding: 15px;
+      width: 100%; padding: 14px;
       background: linear-gradient(135deg, #ff4444 0%, #cc0000 60%, #990000 100%);
       color: white; border: none; border-radius: 10px;
       font-size: 15px; font-weight: 700; cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.15s;
       box-shadow: 0 4px 20px rgba(200,0,0,0.5);
-      letter-spacing: 0.3px;
+      transition: transform 0.15s, box-shadow 0.15s;
     }
-    .btn:hover  { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(200,0,0,0.6); }
+    .btn:hover   { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(200,0,0,0.6); }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-    /* ── DIVIDER ── */
-    .divider {
-      border: none; border-top: 1px solid rgba(255,255,255,0.15);
-      margin: 18px 0;
-    }
+    .divider { border: none; border-top: 1px solid rgba(255,255,255,0.15); margin: 14px 0; }
 
-    #loginSection { display: block; }
+    /* ── SECTIONS ── */
+    #loginSection { display: none; }
     #formSection  { display: none; }
+
+    /* ── FADE TRANSITION ── */
+    .fade-in { animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body>
@@ -268,12 +302,23 @@
       <p id="pageSubtitle">Ikuti event tebak skor untuk beberapa pertandingan pilihan di Piala Dunia 2026</p>
     </div>
 
+    <!-- SPLASH SCREEN -->
+    <div id="splashSection">
+      <div class="splash-anim">
+        <div class="ball">⚽</div>
+        <div class="splash-text">Memuat pertandingan...</div>
+      </div>
+      <button class="btn-tebak" id="btnTebak" onclick="onTebakClick()" style="display:none">
+        ⚽ Tebak Skor Sekarang
+      </button>
+    </div>
+
     <!-- LOGIN SECTION -->
     <div id="loginSection">
       <div class="info">
         <div class="step"><span class="num">1</span> Login dengan akun Google kamu</div>
         <div class="step"><span class="num">2</span> Isi tebakan skor pertandingan</div>
-        <div class="step"><span class="num">3</span> Izinkan notifikasi ke Google Calendar</div>
+        <div class="step"><span class="num">3</span> Izinkan notifikasi ke Google Calendar (1x saja)</div>
       </div>
       <button class="google-btn" onclick="loginGoogle()">
         <svg width="20" height="20" viewBox="0 0 24 24">
@@ -288,8 +333,6 @@
 
     <!-- FORM SECTION -->
     <div id="formSection">
-
-      <!-- User bar -->
       <div class="user-bar">
         <div class="avatar" id="userAvatar">?</div>
         <div>
@@ -299,24 +342,19 @@
         <button class="change-btn" onclick="logout()">Ganti Akun</button>
       </div>
 
-      <!-- User ID -->
       <label>User ID *</label>
       <input type="text" id="userId" placeholder="Minimal 4 karakter (huruf/angka)" maxlength="30">
       <div class="error-msg" id="errUserId"></div>
 
-      <!-- WhatsApp -->
       <label>Nomor WhatsApp *</label>
       <input type="tel" id="noHp" placeholder="08xxxxxxxxxx (min 10 digit)">
       <div class="error-msg" id="errWa"></div>
 
       <hr class="divider">
 
-      <!-- Match list -->
       <label style="margin-bottom:10px">Pilih Pertandingan & Isi Tebakan</label>
       <div class="matches-list" id="matchesList">
-        <div style="color:rgba(255,255,255,0.5);font-size:13px;text-align:center;padding:16px">
-          ⏳ Memuat pertandingan...
-        </div>
+        <div style="color:rgba(255,255,255,0.5);font-size:13px;text-align:center;padding:16px">⏳ Memuat...</div>
       </div>
       <div class="error-msg" id="errMatch"></div>
 
@@ -325,8 +363,8 @@
       </button>
     </div>
 
-  </div><!-- /card-content -->
-</div><!-- /card -->
+  </div>
+</div>
 
 <script>
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1G85WVH53xRcoPsKNMlniRQXObUlvF47kegtaQlUptTnkclMngnWtRTApvVx4WwQ3/exec';
@@ -335,23 +373,43 @@
 
   let matches     = [];
   let currentUser = null;
+  let activeMatch = -1; // accordion — index yang sedang terbuka
 
-  // ── Load config dari Apps Script ──
+  // ── Load config ──
   async function loadConfig() {
     try {
       const r = await fetch(APPS_SCRIPT_URL + '?action=getConfig');
       const d = await r.json();
       matches = d.data || [];
-
-      // Load setting title/subtitle jika ada
       if (d.title)    document.getElementById('pageTitle').textContent    = d.title;
       if (d.subtitle) document.getElementById('pageSubtitle').textContent = d.subtitle;
-    } catch(e) {
-      matches = [];
-    }
-    renderMatches();
+    } catch(e) { matches = []; }
+
+    // Selesai load — tampilkan tombol Tebak Skor
+    const splash = document.querySelector('.splash-anim .splash-text');
+    if (splash) splash.textContent = matches.length ? 'Pertandingan siap!' : 'Belum ada pertandingan';
+    setTimeout(() => {
+      document.getElementById('btnTebak').style.display = 'block';
+    }, 1200);
   }
 
+  // ── Klik tombol Tebak Skor ──
+  function onTebakClick() {
+    // Cek localStorage — sudah login sebelumnya?
+    const saved = localStorage.getItem('pildun_user');
+    if (saved) {
+      try {
+        const u = JSON.parse(saved);
+        currentUser = u;
+        showForm(u.email, u.name, false);
+        return;
+      } catch(e) {}
+    }
+    // Belum login — tampilkan login section
+    showSection('loginSection');
+  }
+
+  // ── Render match accordion ──
   function renderMatches() {
     const list = document.getElementById('matchesList');
     if (!matches.length) {
@@ -361,33 +419,65 @@
     list.innerHTML = matches.map((m, i) => `
       <div class="match-card" id="match-${i}" onclick="toggleMatch(${i})">
         <div class="match-header">
-          <div class="match-checkbox">
-            <span class="match-checkbox-tick">✓</span>
-          </div>
+          <div class="match-checkbox"><span class="match-checkbox-tick">✓</span></div>
           <div class="match-title">${m.pertandingan}</div>
-          <div class="match-time">${m.jam || ''}</div>
+          <div class="match-time">${m.tanggal ? m.tanggal + ' ' + m.jam : m.jam || ''}</div>
         </div>
-        <div class="score-section">
+        <div class="match-preview" id="preview-${i}">Tebakan: 0 - 0</div>
+        <div class="score-section" onclick="event.stopPropagation()">
           <div class="score-row">
             <div class="score-col">
               <div class="team-label">${m.timA}</div>
-              <input type="number" id="scoreA-${i}" min="0" max="20" value="0" onclick="event.stopPropagation()">
+              <input type="number" id="scoreA-${i}" min="0" max="20" value="0">
             </div>
             <div class="vs-badge">VS</div>
             <div class="score-col">
               <div class="team-label">${m.timB}</div>
-              <input type="number" id="scoreB-${i}" min="0" max="20" value="0" onclick="event.stopPropagation()">
+              <input type="number" id="scoreB-${i}" min="0" max="20" value="0">
             </div>
           </div>
+          <button class="btn-confirm" onclick="confirmMatch(${i})">✓ Simpan Tebakan</button>
         </div>
       </div>
     `).join('');
   }
 
+  // ── Toggle accordion ──
   function toggleMatch(i) {
     const card = document.getElementById('match-' + i);
-    card.classList.toggle('selected');
+
+    // Tutup yang sebelumnya aktif
+    if (activeMatch !== -1 && activeMatch !== i) {
+      const prev = document.getElementById('match-' + activeMatch);
+      if (prev) prev.classList.remove('active');
+    }
+
+    // Toggle yang diklik
+    if (activeMatch === i) {
+      card.classList.remove('active');
+      activeMatch = -1;
+    } else {
+      card.classList.add('active');
+      activeMatch = i;
+    }
+
     document.getElementById('errMatch').textContent = '';
+  }
+
+  // ── Konfirmasi skor 1 match ──
+  function confirmMatch(i) {
+    const sA = document.getElementById('scoreA-' + i).value || '0';
+    const sB = document.getElementById('scoreB-' + i).value || '0';
+    const card = document.getElementById('match-' + i);
+    const preview = document.getElementById('preview-' + i);
+
+    // Update preview
+    preview.textContent = 'Tebakan: ' + sA + ' - ' + sB;
+
+    // Mark as done, tutup accordion
+    card.classList.add('done');
+    card.classList.remove('active');
+    activeMatch = -1;
   }
 
   // ── Validasi ──
@@ -396,7 +486,6 @@
     if (!/^[a-zA-Z0-9]+$/.test(val)) return 'User ID hanya boleh huruf dan angka';
     return '';
   }
-
   function validateWa(val) {
     if (!val) return 'Nomor WhatsApp wajib diisi';
     if (!/^\d+$/.test(val)) return 'Nomor WhatsApp hanya boleh angka';
@@ -405,44 +494,65 @@
   }
 
   // ── Submit ──
-  function handleSubmit() {
+  async function handleSubmit() {
     const userId = document.getElementById('userId').value.trim();
     const noHp   = document.getElementById('noHp').value.trim();
 
-    // Validasi
     const errUID = validateUserId(userId);
     const errWA  = validateWa(noHp);
     document.getElementById('errUserId').textContent = errUID;
     document.getElementById('errWa').textContent     = errWA;
     if (errUID || errWA) return;
 
-    // Cek minimal 1 match dipilih
+    // Kumpulkan match yang sudah di-confirm (class 'done')
     const selected = matches.map((m, i) => {
       const card = document.getElementById('match-' + i);
-      if (!card || !card.classList.contains('selected')) return null;
+      if (!card || !card.classList.contains('done')) return null;
       return {
         pertandingan: m.pertandingan,
-        timA: m.timA,
-        timB: m.timB,
+        timA: m.timA, timB: m.timB,
         skorA: document.getElementById('scoreA-' + i)?.value || '0',
         skorB: document.getElementById('scoreB-' + i)?.value || '0'
       };
     }).filter(Boolean);
 
     if (!selected.length) {
-      document.getElementById('errMatch').textContent = 'Pilih minimal 1 pertandingan';
+      document.getElementById('errMatch').textContent = 'Pilih dan simpan minimal 1 pertandingan';
       return;
     }
 
-    document.getElementById('submitBtn').disabled    = true;
-    document.getElementById('submitBtn').textContent = '⏳ Memproses...';
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = '⏳ Memproses...';
 
-    // Simpan ke sessionStorage
-    sessionStorage.setItem('pildun_matches', JSON.stringify(selected));
-    sessionStorage.setItem('pildun_extra',   JSON.stringify({ userId, noHp }));
+    // Cek apakah email sudah authorized di DB_Auth
+    try {
+      const checkRes = await fetch(APPS_SCRIPT_URL + '?action=checkEmail&email=' + encodeURIComponent(currentUser.email));
+      const checkData = await checkRes.json();
 
-    // Encode state untuk calendar OAuth
-    // Format: calendar|email|nama|userId|noHp|JSON_matches
+      if (checkData.authorized) {
+        // Sudah authorized — langsung save tanpa OAuth Calendar
+        const saveRes = await fetch(APPS_SCRIPT_URL + '?action=saveOnly&' + new URLSearchParams({
+          email: currentUser.email,
+          nama:  currentUser.name,
+          userId, noHp,
+          matches: JSON.stringify(selected)
+        }));
+        const saveData = await saveRes.json();
+        if (saveData.success) {
+          window.location.href = '/success.html?status=success&name=' + encodeURIComponent(currentUser.name);
+        } else {
+          btn.disabled = false;
+          btn.textContent = '📅 Submit & Hubungkan Calendar';
+          alert('Gagal simpan data: ' + (saveData.error || 'Unknown'));
+        }
+        return;
+      }
+    } catch(e) {
+      // Kalau cek gagal, lanjut ke OAuth flow biasa
+    }
+
+    // Belum authorized — OAuth Calendar
     const state = encodeURIComponent([
       'calendar',
       currentUser.email,
@@ -452,7 +562,7 @@
       encodeURIComponent(JSON.stringify(selected))
     ].join('|'));
 
-    const calendarOAuthUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
+    window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth'
       + '?client_id='    + encodeURIComponent(CLIENT_ID)
       + '&redirect_uri=' + encodeURIComponent(BASE_URL + '/.netlify/functions/callback')
       + '&response_type=code'
@@ -460,8 +570,35 @@
       + '&access_type=offline'
       + '&prompt=consent'
       + '&state='        + state;
+  }
 
-    window.location.href = calendarOAuthUrl;
+  // ── Show section helper ──
+  function showSection(id) {
+    ['splashSection','loginSection','formSection'].forEach(s => {
+      const el = document.getElementById(s);
+      if (el) el.style.display = 'none';
+    });
+    const target = document.getElementById(id);
+    if (target) { target.style.display = 'block'; target.classList.add('fade-in'); }
+  }
+
+  // ── Show form ──
+  function showForm(email, name, animate) {
+    currentUser = { email, name };
+    localStorage.setItem('pildun_user', JSON.stringify(currentUser));
+    showSection('formSection');
+    document.getElementById('userName').textContent   = name;
+    document.getElementById('userEmail').textContent  = email;
+    document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
+    renderMatches();
+  }
+
+  // ── Logout ──
+  function logout() {
+    localStorage.removeItem('pildun_user');
+    currentUser = null;
+    showSection('splashSection');
+    document.getElementById('btnTebak').style.display = 'block';
   }
 
   // ── Google Login ──
@@ -469,43 +606,27 @@
     window.location.href = '/.netlify/functions/auth?state=login';
   }
 
-  function logout() {
-    sessionStorage.removeItem('pildun_user');
-    currentUser = null;
-    document.getElementById('loginSection').style.display = 'block';
-    document.getElementById('formSection').style.display  = 'none';
-  }
-
-  function showForm(email, name) {
-    currentUser = { email, name };
-    sessionStorage.setItem('pildun_user', JSON.stringify(currentUser));
-    document.getElementById('loginSection').style.display = 'none';
-    document.getElementById('formSection').style.display  = 'block';
-    document.getElementById('userName').textContent   = name;
-    document.getElementById('userEmail').textContent  = email;
-    document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
-  }
-
   // ── Init ──
-  window.onload = function() {
+  window.onload = async function() {
+    // Load config di background
     loadConfig();
 
+    // Cek apakah balik dari OAuth login
     const params = new URLSearchParams(window.location.search);
     const email  = params.get('email');
     const name   = params.get('name');
     const step   = params.get('step');
 
     if (email && step === 'form') {
-      showForm(email, name || email);
       window.history.replaceState({}, '', '/');
+      // Tunggu matches loaded dulu
+      await new Promise(r => setTimeout(r, 1500));
+      showForm(email, name || email, true);
       return;
     }
 
-    const saved = sessionStorage.getItem('pildun_user');
-    if (saved) {
-      const u = JSON.parse(saved);
-      showForm(u.email, u.name);
-    }
+    // Tampilkan splash dulu
+    showSection('splashSection');
   };
 </script>
 </body>
