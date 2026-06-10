@@ -25,7 +25,6 @@
       height: 100vh;
       border-radius: 0;
       overflow: hidden;
-      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
       display: flex;
       flex-direction: column;
     }
@@ -35,7 +34,6 @@
       background-image: url('bg.jpg');
       background-size: cover;
       background-position: center top;
-      background-repeat: no-repeat;
       z-index: 0;
     }
 
@@ -63,29 +61,29 @@
 
     .card-content {
       position: relative; z-index: 2;
-      padding: 40px 28px;
       height: 100vh;
-      overflow-y: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 16px;
+      gap: 20px;
+      padding: 20px;
     }
 
     @media (min-width: 481px) {
       body { padding: 20px; }
       .card { height: auto; border-radius: 20px; }
-      .card-content { height: 85vh; max-height: 800px; min-height: 500px; }
+      .card-content { height: 85vh; max-height: 800px; }
     }
 
     .logo-gif {
-      max-width: 325px;
+      width: 325px;
+      max-width: 100%;
       height: auto;
     }
 
     .success-icon {
-      width: 72px; height: 72px;
+      width: 80px; height: 80px;
       background: rgba(255,255,255,0.1);
       border: 4px solid white;
       border-radius: 50%;
@@ -100,34 +98,10 @@
 
     .success-title {
       font-family: 'Oswald', sans-serif;
-      font-size: 32px; color: white;
+      font-size: 36px; color: white;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    }
-
-    .user-name {
-      font-weight: 700; color: #ffdc00;
-      font-size: 16px; display: block;
-      text-align: center;
-    }
-
-    .success-desc {
-      text-align: center;
-      color: rgba(255,255,255,0.85);
-      font-size: 14px; line-height: 1.6;
-    }
-
-    .info-box {
-      background: rgba(0,0,0,0.3);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      font-size: 12px;
-      color: rgba(255,255,255,0.7);
-      line-height: 1.5;
-      width: 100%;
     }
 
     .fade-in { animation: fadeIn 0.5s ease; }
@@ -142,36 +116,16 @@
   <a href="https://sumbu.link" class="close-btn" title="Tutup">✕</a>
 
   <div class="card-content fade-in">
-    <!-- GIF logo -->
     <img src="https://dash.takenupload.org/GIf-SMBT-NEW-340" alt="Sumbutogel" class="logo-gif">
 
     <div class="success-icon">
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="20 6 9 17 4 12"></polyline>
       </svg>
     </div>
 
     <h1 class="success-title">Berhasil!</h1>
-
-    <span class="user-name">Halo <span id="displayName">Pengguna</span>! 🎉</span>
-
-    <p class="success-desc">
-      Tebakan skor kamu sudah tersimpan dan Google Calendar kamu sudah terhubung.
-    </p>
-
-    <div class="info-box">
-      Kamu akan mendapat notifikasi hasil pertandingan langsung di Google Calendar. <br><br>
-      Kamu bisa menutup halaman ini menggunakan tombol silang di atas.
-    </div>
   </div>
 </div>
-
-<script>
-  window.onload = function() {
-    const params = new URLSearchParams(window.location.search);
-    const name   = params.get('name');
-    if (name) document.getElementById('displayName').textContent = decodeURIComponent(name);
-  };
-</script>
 </body>
 </html>
