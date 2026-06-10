@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sumbutogel - Tebak Skor Piala Dunia FIFA 2026</title>
+  <title>Sumbutogel - Tebak Skor Gacor</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* ── ATRAKTIF: Variabel Warna Gacor ── */
     :root {
       --primary-red: #cc0000;
       --dark-red: #1a0000;
+      --accent-yellow: #ffdc00;
       --running-border-1: #ff0000;
       --running-border-2: #ffdc00;
       --running-border-3: #00ff00;
@@ -30,7 +31,7 @@
       overflow-x: hidden;
     }
 
-    /* ── ATRAKTIF: Running Border Effect pada Card Utama ── */
+    /* ── CARD UTAMA: Full Screen di Mobile dengan Running Border ── */
     .card {
       position: relative;
       width: 100%;
@@ -41,7 +42,6 @@
       display: flex;
       flex-direction: column;
       z-index: 1;
-      /* Border transparan untuk wadah running border */
       border: 4px solid transparent; 
     }
     
@@ -53,7 +53,6 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      /* Gradasi pelangi untuk border */
       background: conic-gradient(
         var(--running-border-1), 
         var(--running-border-2), 
@@ -69,7 +68,7 @@
     .card::after {
       content: '';
       position: absolute;
-      inset: 0; /* Menempel ke border transparent tadi */
+      inset: 0; 
       background: var(--dark-red);
       z-index: -1;
     }
@@ -78,20 +77,32 @@
       100% { transform: rotate(360deg); }
     }
 
+    /* ── ATRAKTIF: Background Baru (GIF Animasi) Gacor ── */
     .card-bg {
       position: absolute; 
       inset: 0;
-      background-image: url('bg.jpg'); /* Pastikan file bg.jpg ada di folder yang sama */
+      /* FIX: Ganti dengan link background GIF baru bray */
+      background-image: url('https://dash.takenupload.org/GIf-SMBT-NEW-340'); 
       background-size: cover; 
       background-position: center top;
       background-repeat: no-repeat;
       z-index: 0;
     }
 
+    /* ── ATRAKTIF: Gradasi Overlay Gacor ── */
     .card-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(160deg, rgba(200,0,0,0.70) 0%, rgba(140,0,0,0.70) 40%, rgba(80,0,0,0.80) 100%);
       z-index: 1;
+      /* FIX: Tambahkan transisi biar halus bray */
+      transition: opacity 0.5s ease-out;
+      opacity: 1;
+    }
+
+    /* FIX: Saat Login, hapus gradasi biar background tampil penuh terang bray */
+    .card.login-active .card-overlay {
+      opacity: 0;
+      pointer-events: none; /* Biar nembus ke background bray */
     }
 
     .card-content {
@@ -115,7 +126,7 @@
         max-width: 480px; 
         border-radius: 24px; 
         box-shadow: 0 32px 80px rgba(0,0,0,0.6); 
-        border: 5px solid transparent; /* Border sedikit lebih tebal di PC */
+        border: 5px solid transparent; 
       }
       .card::after { border-radius: 20px; }
       .card-content { 
@@ -135,11 +146,11 @@
       display: flex; align-items: center; justify-content: center; gap: 10px;
       transition: all 0.2s ease;
       box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-      margin-top: auto; /* Taruh paling bawah content login */
+      margin-top: auto; 
     }
     .google-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,255,255,0.3); }
 
-    /* ── INPUTS INTERAKTIF ── */
+    /* ── INPUTS INTERAKTIF GACOR ── */
     label {
       display: block; font-size: 11px; font-weight: 700;
       color: rgba(255,255,255,0.8); margin-bottom: 6px;
@@ -155,10 +166,9 @@
       font-family: inherit; margin-bottom: 16px;
     }
     input[type=text]::placeholder, input[type=tel]::placeholder { color: rgba(255,255,255,0.5); }
-    /* ATRAKTIF: Efek fokus input membesar dan bersinar */
     input[type=text]:focus, input[type=tel]:focus { 
       background: #a30000; 
-      border-color: #ffdc00;
+      border-color: var(--accent-yellow);
       transform: scale(1.02);
       box-shadow: 0 0 15px rgba(255, 220, 0, 0.5);
     }
@@ -174,9 +184,8 @@
     }
     input[type=number]:focus { 
       background: #a30000;
-      border-color: #ffdc00;
+      border-color: var(--accent-yellow);
     }
-    /* ATRAKTIF: Sembunyikan spinner input number di berbagai browser */
     input[type=number]::-webkit-inner-spin-button, 
     input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
     input[type=number] { -moz-appearance: textfield; }
@@ -188,7 +197,7 @@
 
     .error-msg { color: #ffb3b3; font-size: 11px; margin-top: -12px; margin-bottom: 14px; display: block;}
 
-    /* ── MATCH CARDS INTERAKTIF ── */
+    /* ── MATCH CARDS INTERAKTIF GACOR ── */
     .matches-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
 
     .match-card {
@@ -201,12 +210,11 @@
     .match-card.active {
       background: #a30000;
       transform: scale(1.02);
-      border-color: #ffdc00;
+      border-color: var(--accent-yellow);
       box-shadow: 0 8px 24px rgba(0,0,0,0.3);
     }
-    /* ATRAKTIF: Match Card DONE bersinar keemasan */
     .match-card.done {
-      border-color: #ffdc00;
+      border-color: var(--accent-yellow);
       background: #5c0000;
       box-shadow: 0 0 10px rgba(255, 220, 0, 0.4);
       animation: pulseDone 2s infinite;
@@ -242,7 +250,7 @@
     .match-preview {
       display: none;
       padding: 4px 16px 12px;
-      font-size: 12px; color: #ffdc00;
+      font-size: 12px; color: var(--accent-yellow);
       font-weight: 600;
     }
     .match-card.done:not(.active) .match-preview { display: block; }
@@ -261,7 +269,6 @@
       margin-bottom: 6px;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    /* ATRAKTIF: VS Badge Berdenyut */
     .vs-badge {
       background: rgba(255,255,255,0.2);
       color: white; font-weight: 800; font-size: 12px;
@@ -276,22 +283,22 @@
       100% { transform: scale(1); background: rgba(255,255,255,0.2); }
     }
     
-    /* ── TOMBOL SIMPAN TEBAKAN (Paling Sori & Tipis) ── */
+    /* ── TOMBOL SIMPAN TEBAKAN: FIX Border Paling Sori & Tipis bray ── */
     .btn-confirm {
       width: 100%; padding: 10px;
       background: #a30000;
       color: white; 
-      border: 1px solid #ffffff; /* FIX: Paling sori dan tipis */
+      /* FIX: Border tipis bray sori parah */
+      border: 1px solid #ffffff; 
       border-radius: 10px; font-size: 13px; font-weight: 700;
       cursor: pointer; margin-top: 12px;
       transition: all 0.15s ease;
     }
     .btn-confirm:hover { background: #cc0000; transform: translateY(-1px); }
 
-    /* ── SUBMIT BTN INTERAKTIF ── */
+    /* ── SUBMIT BTN INTERAKTIF GACOR ── */
     .btn {
       width: 100%; padding: 15px;
-      /* ATRAKTIF: Gradasi bergerak */
       background: linear-gradient(270deg, #ff4444, #cc0000, #990000);
       background-size: 600% 600%;
       color: white; 
@@ -305,7 +312,7 @@
     .btn:hover { 
       transform: translateY(-2px); 
       box-shadow: 0 8px 30px rgba(255, 68, 68, 0.4);
-      border-color: #ffdc00;
+      border-color: var(--accent-yellow);
     }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; animation: none;}
 
@@ -330,17 +337,28 @@
     
     #loginSection { 
       align-items: center; 
-      justify-content: center; /* Konten login tetap di tengah layar */
+      justify-content: center; 
     }
     
     #formSection {
-      justify-content: flex-start; /* Form mulai dari atas */
+      justify-content: flex-start; 
+    }
+
+    /* FIX: Style Link Gacor biar nampak bray */
+    .logo-link {
+        text-decoration: none;
+        color: inherit; /* Menjaga warna default bray */
+        transition: color 0.2s ease;
+    }
+    .logo-link:hover {
+        color: var(--accent-yellow); /* Kasi kuning bray biar nampak link */
+        text-decoration: underline; /* Tambah garis bray biar sor link */
     }
 
     .fade-in { animation: fadeIn 0.4s ease-out; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* ── ATRAKTIF: Tombol Musik ── */
+    /* ── ATRAKTIF: Tombol Musik Gacor ── */
     #musicControls {
       position: fixed;
       bottom: 15px;
@@ -363,7 +381,7 @@
       transition: all 0.2s ease;
     }
     .btn-music:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.05); }
-    .btn-music.playing { border-color: #ffdc00; color: #ffdc00; animation: pulseMusic 2s infinite;}
+    .btn-music.playing { border-color: var(--accent-yellow); color: var(--accent-yellow); animation: pulseMusic 2s infinite;}
 
     @keyframes pulseMusic {
       0% { box-shadow: 0 0 0 0 rgba(255, 220, 0, 0.7); }
@@ -379,16 +397,17 @@
   <button id="musicBtn" class="btn-music" onclick="toggleMusic()">🎵</button>
 </div>
 
-<div class="card">
+<div class="card login-active">
   <div class="card-bg"></div>
   <div class="card-overlay"></div>
   <div class="card-content">
 
     <div id="loginSection" class="fade-in">
       <div style="text-align:center; color:white; margin-bottom:30px">
-        <h1 style="font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:28px; letter-spacing:1px">Sumbutogel</h1>
-        <p style="font-size:12px; opacity:0.8">Tebak Skor Piala Dunia 2026</p>
-      </div>
+        <a href="https://sumbu.link" class="logo-link">
+            <h1 style="font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:28px; letter-spacing:1px">Sumbutogel</h1>
+        </a>
+        </div>
       <button class="google-btn" onclick="loginGoogle()">
         <svg width="20" height="20" viewBox="0 0 24 24">
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -402,7 +421,9 @@
 
     <div id="formSection" class="fade-in">
       <div style="text-align:center; color:white; margin-bottom:20px; flex-shrink:0;">
-        <h1 style="font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:24px; letter-spacing:1px; color:#ffdc00">Sumbutogel</h1>
+        <a href="https://sumbu.link" class="logo-link">
+            <h1 style="font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:24px; letter-spacing:1px; color:#ffdc00">Sumbutogel</h1>
+        </a>
       </div>
 
       <label>User ID *</label>
@@ -437,7 +458,7 @@
   let activeMatch = -1;
   let isLoading   = true;
 
-  // ── MUSIK LOGIC ──
+  // ── MUSIK LOGIC GACOR ──
   const music = document.getElementById('bgMusic');
   const musicBtn = document.getElementById('musicBtn');
   let isPlaying = false;
@@ -529,10 +550,10 @@
   }
 
   function confirmMatch(i) {
-    // FIX: Ambil value, jika kosong ubah jadi 0 bray
     let sA = document.getElementById('scoreA-' + i).value;
     let sB = document.getElementById('scoreB-' + i).value;
     
+    // FIX: Value placeholder bray 0 bray sor bray
     if(sA === "") sA = "0";
     if(sB === "") sB = "0";
     
@@ -572,7 +593,7 @@
       const card = document.getElementById('match-' + i);
       if (!card || !card.classList.contains('done')) return null;
       
-      // Ambil value, jika kosong (placeholder) anggap 0
+      // FIX: Placeholder value bray sor 0 bray
       let sA = document.getElementById('scoreA-' + i)?.value;
       let sB = document.getElementById('scoreB-' + i)?.value;
       if(sA === "" || sA === undefined) sA = "0";
@@ -587,7 +608,7 @@
     }).filter(Boolean);
 
     if (!selected.length) {
-      document.getElementById('errMatch').textContent = 'Pilih & simpan minimal 1 tebakan dulu bray';
+      document.getElementById('errMatch').textContent = 'Pilih & simpan minimal 1 tebakan bray';
       return;
     }
 
@@ -652,6 +673,9 @@
   }
 
   function showForm(email, name) {
+    // FIX: Matikan overlay (aktifkan opacity gradasi) bray sor bray
+    document.querySelector('.card').classList.remove('no-overlay');
+    
     currentUser = { email, name };
     localStorage.setItem('pildun_user', JSON.stringify(currentUser));
     showSection('formSection');
@@ -667,6 +691,9 @@
   }
 
   window.onload = function() {
+    // FIX: Default login bray sor no overlay bray
+    document.querySelector('.card').classList.add('no-overlay');
+    
     const params = new URLSearchParams(window.location.search);
     const email  = params.get('email');
     const name   = params.get('name');
