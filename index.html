@@ -45,7 +45,7 @@
       border: 4px solid transparent; 
     }
     
-    /* Pseudo-element untuk Running Border */
+    /* Pseudo-element untuk Running BorderPelangi */
     .card::before {
       content: '';
       position: absolute;
@@ -77,32 +77,30 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* ── ATRAKTIF: Background Baru (GIF Animasi) Gacor ── */
+    /* ── FIX BRAY: Background JPG Asli Balik Mutlak bray ── */
     .card-bg {
       position: absolute; 
       inset: 0;
-      /* FIX: Ganti dengan link background GIF baru bray */
-      background-image: url('https://dash.takenupload.org/GIf-SMBT-NEW-340'); 
+      background-image: url('bg.jpg'); /* FIX: jpg asli balik bray */
       background-size: cover; 
       background-position: center top;
       background-repeat: no-repeat;
       z-index: 0;
     }
 
-    /* ── ATRAKTIF: Gradasi Overlay Gacor ── */
+    /* ── ATRAKTIF: Gradasi Overlay ── */
     .card-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(160deg, rgba(200,0,0,0.70) 0%, rgba(140,0,0,0.70) 40%, rgba(80,0,0,0.80) 100%);
       z-index: 1;
-      /* FIX: Tambahkan transisi biar halus bray */
       transition: opacity 0.5s ease-out;
       opacity: 1;
     }
 
-    /* FIX: Saat Login, hapus gradasi biar background tampil penuh terang bray */
+    /* FIX: Saat Login, hapus gradasi biar bg.jpg asli tampil penuh terang bray */
     .card.login-active .card-overlay {
       opacity: 0;
-      pointer-events: none; /* Biar nembus ke background bray */
+      pointer-events: none; 
     }
 
     .card-content {
@@ -283,12 +281,11 @@
       100% { transform: scale(1); background: rgba(255,255,255,0.2); }
     }
     
-    /* ── TOMBOL SIMPAN TEBAKAN: FIX Border Paling Sori & Tipis bray ── */
+    /* ── TOMBOL SIMPAN TEBAKAN ── */
     .btn-confirm {
       width: 100%; padding: 10px;
       background: #a30000;
       color: white; 
-      /* FIX: Border tipis bray sori parah */
       border: 1px solid #ffffff; 
       border-radius: 10px; font-size: 13px; font-weight: 700;
       cursor: pointer; margin-top: 12px;
@@ -344,15 +341,23 @@
       justify-content: flex-start; 
     }
 
-    /* FIX: Style Link Gacor biar nampak bray */
+    /* ── Style Link Logo bray ── */
     .logo-link {
         text-decoration: none;
-        color: inherit; /* Menjaga warna default bray */
+        color: inherit; 
         transition: color 0.2s ease;
+        display: block;
+        margin: 0 auto;
+        text-align: center;
     }
-    .logo-link:hover {
-        color: var(--accent-yellow); /* Kasi kuning bray biar nampak link */
-        text-decoration: underline; /* Tambah garis bray biar sor link */
+    
+    /* FIX: Style Gambar Logo GIF Gacor bray sor 0 bray */
+    .logo-img {
+        max-width: 200px; /* Atur lebar logo bray */
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); /* Biar nampak gaco bray */
     }
 
     .fade-in { animation: fadeIn 0.4s ease-out; }
@@ -405,9 +410,9 @@
     <div id="loginSection" class="fade-in">
       <div style="text-align:center; color:white; margin-bottom:30px">
         <a href="https://sumbu.link" class="logo-link">
-            <h1 style="font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:28px; letter-spacing:1px">Sumbutogel</h1>
+            <img src="https://dash.takenupload.org/GIf-SMBT-NEW-340" alt="Sumbutogel Logo" class="logo-img">
         </a>
-        </div>
+      </div>
       <button class="google-btn" onclick="loginGoogle()">
         <svg width="20" height="20" viewBox="0 0 24 24">
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -422,7 +427,7 @@
     <div id="formSection" class="fade-in">
       <div style="text-align:center; color:white; margin-bottom:20px; flex-shrink:0;">
         <a href="https://sumbu.link" class="logo-link">
-            <h1 style="font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:24px; letter-spacing:1px; color:#ffdc00">Sumbutogel</h1>
+            <img src="https://dash.takenupload.org/GIf-SMBT-NEW-340" alt="Sumbutogel Logo" class="logo-img">
         </a>
       </div>
 
@@ -449,9 +454,11 @@
 </div>
 
 <script>
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1G85WVH53xRcoPsKNMlniRQXObUlvF47kegtaQlUptTnkclMngnWtRTApvVx4WwQ3/exec';
-  const CLIENT_ID       = '69593145654-5c2n90v8f3cetmtjl91u7ua00rg7rub2.apps.googleusercontent.com';
-  const BASE_URL        = 'https://pildun-form.vercel.app';
+  // URL untuk Apps Script, OAuth CLIENT_ID, dan URL dasar.
+  // GANTI DENGAN NILAI AKTIF LO BRAY
+  const APPS_SCRIPT_URL = 'GANTI_DENGAN_URL_DEPLOY_GAS_LO_BRAY';
+  const CLIENT_ID       = 'GANTI_DENGAN_CLIENT_ID_OAUTH_LO_BRAY.apps.googleusercontent.com';
+  const BASE_URL        = 'GANTI_DENGAN_URL_VERCEL_LO_BRAY';
 
   let matches     = [];
   let currentUser = null;
@@ -553,7 +560,7 @@
     let sA = document.getElementById('scoreA-' + i).value;
     let sB = document.getElementById('scoreB-' + i).value;
     
-    // FIX: Value placeholder bray 0 bray sor bray
+    // FIX value empty bray sor 0 bray
     if(sA === "") sA = "0";
     if(sB === "") sB = "0";
     
@@ -573,9 +580,9 @@
     return '';
   }
   function validateWa(val) {
-    if (!val) return 'Nomor WA wajib diisi';
-    if (!/^\d+$/.test(val)) return 'Nomor WA cuma boleh angka';
-    if (val.length < 10) return 'Nomor WA minimal 10 digit';
+    if (!val) return 'Nomor WA wajib diisi bray';
+    if (!/^\d+$/.test(val)) return 'Nomor WA cuma boleh angka bray';
+    if (val.length < 10) return 'Nomor WA minimal 10 digit bray';
     return '';
   }
 
@@ -593,7 +600,6 @@
       const card = document.getElementById('match-' + i);
       if (!card || !card.classList.contains('done')) return null;
       
-      // FIX: Placeholder value bray sor 0 bray
       let sA = document.getElementById('scoreA-' + i)?.value;
       let sB = document.getElementById('scoreB-' + i)?.value;
       if(sA === "" || sA === undefined) sA = "0";
@@ -608,7 +614,7 @@
     }).filter(Boolean);
 
     if (!selected.length) {
-      document.getElementById('errMatch').textContent = 'Pilih & simpan minimal 1 tebakan bray';
+      document.getElementById('errMatch').textContent = 'Pilih & simpan minimal 1 tebakan dulu bray';
       return;
     }
 
@@ -673,8 +679,8 @@
   }
 
   function showForm(email, name) {
-    // FIX: Matikan overlay (aktifkan opacity gradasi) bray sor bray
-    document.querySelector('.card').classList.remove('no-overlay');
+    // FIX: Matikan overlay (aktifkan opacity gradasi) bray MUTLAK FIX bray
+    document.querySelector('.card').classList.remove('login-active');
     
     currentUser = { email, name };
     localStorage.setItem('pildun_user', JSON.stringify(currentUser));
@@ -691,8 +697,8 @@
   }
 
   window.onload = function() {
-    // FIX: Default login bray sor no overlay bray
-    document.querySelector('.card').classList.add('no-overlay');
+    // FIX: Default login mode bray MUTLAK FIX bray
+    document.querySelector('.card').classList.add('login-active');
     
     const params = new URLSearchParams(window.location.search);
     const email  = params.get('email');
