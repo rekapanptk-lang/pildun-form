@@ -31,8 +31,10 @@
     .card-bg {
       position: absolute; inset: 0;
       background-image: url('bg.jpg'); /* Ganti dengan URL gambar background yang benar */
-      background-size: cover;
-      background-position: center;
+      /* FIX: 100% 100% agar gambar menyesuaikan bingkai tanpa memotong tepi di mode HP */
+      background-size: 100% 100%; 
+      background-position: center top;
+      background-repeat: no-repeat;
       z-index: 0;
     }
 
@@ -120,7 +122,7 @@
       background: #b30000;
     }
     .match-card.done {
-      border-color: #ffdc00; /* Border kuning saat sudah disubmit agar membedakan */
+      border-color: #ffdc00;
       background: #800000;
     }
 
