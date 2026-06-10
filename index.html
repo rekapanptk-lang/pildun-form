@@ -31,8 +31,7 @@
     .card-bg {
       position: absolute; inset: 0;
       background-image: url('bg.jpg'); /* Ganti dengan URL gambar background yang benar */
-      /* FIX: 100% 100% agar gambar menyesuaikan bingkai tanpa memotong tepi di mode HP */
-      background-size: 100% 100%; 
+      background-size: cover; 
       background-position: center top;
       background-repeat: no-repeat;
       z-index: 0;
@@ -250,7 +249,7 @@
 
       <label style="margin-bottom:10px">Pilih Pertandingan & Isi Tebakan</label>
       <div class="matches-list" id="matchesList">
-        <div style="color:rgba(255,255,255,0.5);font-size:13px;text-align:center;padding:16px">⏳ Memuat...</div>
+        <div style="color:rgba(255,255,255,0.8);font-size:13px;text-align:center;padding:16px">⏳ Memuat pertandingan...</div>
       </div>
       <div class="error-msg" id="errMatch"></div>
 
@@ -268,21 +267,33 @@
   let matches     = [];
   let currentUser = null;
   let activeMatch = -1;
+  let isLoading   = true;
 
   async function loadConfig() {
     try {
       const r = await fetch(APPS_SCRIPT_URL + '?action=getConfig');
       const d = await r.json();
       matches = d.data || [];
-    } catch(e) { matches = []; }
+      isLoading = false;
+    } catch(e) { 
+      matches = []; 
+      isLoading = false;
+    }
   }
 
   function renderMatches() {
     const list = document.getElementById('matchesList');
-    if (!matches.length) {
-      list.innerHTML = '<div style="color:rgba(255,255,255,0.5);font-size:13px;text-align:center;padding:16px">Belum ada pertandingan tersedia</div>';
+    
+    if (isLoading) {
+      list.innerHTML = '<div style="color:rgba(255,255,255,0.8);font-size:13px;text-align:center;padding:16px">⏳ Memuat pertandingan...</div>';
       return;
     }
+    
+    if (!matches.length) {
+      list.innerHTML = '<div style="color:rgba(255,255,255,0.8);font-size:13px;text-align:center;padding:16px">Belum ada pertandingan tersedia</div>';
+      return;
+    }
+    
     list.innerHTML = matches.map((m, i) => `
       <div class="match-card" id="match-${i}" onclick="toggleMatch(${i})">
         <div class="match-header">
@@ -443,18 +454,25 @@
     }
   }
 
-  function showForm(email, name, animate) {
+  function showForm(email, name) {
     currentUser = { email, name };
     localStorage.setItem('pildun_user', JSON.stringify(currentUser));
     showSection('formSection');
+    // Render awal dengan state "Memuat..."
     renderMatches();
+    
+    // Mulai tarik data di background
+    loadConfig().then(() => {
+      // Render ulang setelah data didapat dari server
+      renderMatches();
+    });
   }
 
   function loginGoogle() {
     window.location.href = '/api/auth?state=login';
   }
 
-  window.onload = async function() {
+  window.onload = function() {
     const params = new URLSearchParams(window.location.search);
     const email  = params.get('email');
     const name   = params.get('name');
@@ -462,11 +480,9 @@
 
     if (email && step === 'form') {
       window.history.replaceState({}, '', '/');
-      await loadConfig(); 
-      showForm(email, name || email, true);
+      showForm(email, name || email);
     } else {
       showSection('loginSection');
-      loadConfig();
     }
   };
 </script>
