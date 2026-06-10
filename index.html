@@ -1,13 +1,3 @@
-Waduh, haha sorry bos! Coba perhatikan baik-baik di area gelap sebelah kiri pada *screenshot* itu. Kalau di-zoom, ada teks samar-samar tulisan: *"Siap bro! Sesuai request..."* 😅
-
-Ternyata bosku **tak sengaja meng-copy teks obrolan saya** ke dalam file HTML-nya. Karena di CSS kita memakai `display: flex;` pada `body`, teks nyasar itu dianggap sebagai elemen terpisah (kolom baru) yang akhirnya "mendorong" *card* utamanya jadi ke sebelah kanan.
-
-**Solusinya gampang:**
-Hapus semua teks obrolan di luar kode. Pastikan file-nya benar-benar **hanya** berisi dari `<!DOCTYPE html>` sampai `</html>`.
-
-Biar aman, ini saya berikan *full code* bersihnya lagi. Langsung tekan tombol **Copy code** di pojok kanan atas blok kode ini ya bos, biar teks obrolannya nggak ikut ke-copy:
-
-```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -505,5 +495,3 @@ Biar aman, ini saya berikan *full code* bersihnya lagi. Langsung tekan tombol **
 </script>
 </body>
 </html>
-
-```
