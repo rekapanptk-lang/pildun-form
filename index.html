@@ -14,23 +14,26 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
       background: #1a0000;
+      margin: 0;
+      padding: 0; /* FIX: Hapus padding sepenuhnya untuk mode Mobile (Fullscreen) */
     }
 
     /* ── CARD ── */
     .card {
       position: relative;
       width: 100%;
-      max-width: 480px;
-      border-radius: 20px;
+      max-width: 600px; /* Melebarkan batas agar HP resolusi tinggi tetap fullscreen */
+      height: 100vh; /* FIX: Paksa tinggi 100% dari layar (Fullscreen) */
+      border-radius: 0; /* FIX: Hapus lengkungan sudut untuk Fullscreen */
       overflow: hidden;
-      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+      display: flex;
+      flex-direction: column;
     }
 
     .card-bg {
       position: absolute; inset: 0;
-      background-image: url('bg.jpg'); /* Ganti dengan URL gambar background yang benar */
+      background-image: url('bg.jpg'); 
       background-size: cover; 
       background-position: center top;
       background-repeat: no-repeat;
@@ -46,9 +49,7 @@
     .card-content {
       position: relative; z-index: 2;
       padding: 32px 28px 28px;
-      height: 85vh; 
-      max-height: 650px; 
-      min-height: 450px;
+      height: 100vh; /* Fullscreen content */
       overflow-y: auto;
       scrollbar-width: thin;
       scrollbar-color: rgba(255,255,255,0.2) transparent;
@@ -57,6 +58,22 @@
     }
     .card-content::-webkit-scrollbar { width: 4px; }
     .card-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+
+    /* UNTUK PC / TABLET BESAR: Kembalikan jadi format Card (Kotak melayang) */
+    @media (min-width: 600px) {
+      body { padding: 20px; }
+      .card { 
+        height: auto; 
+        max-width: 480px; 
+        border-radius: 20px; 
+        box-shadow: 0 32px 80px rgba(0,0,0,0.6); 
+      }
+      .card-content { 
+        height: 85vh; 
+        max-height: 800px; 
+        min-height: 500px; 
+      }
+    }
 
     /* ── GOOGLE BTN ── */
     .google-btn {
@@ -117,9 +134,7 @@
       cursor: pointer;
       transition: background 0.2s;
     }
-    .match-card.active {
-      background: #b30000;
-    }
+    .match-card.active { background: #b30000; }
     .match-card.done {
       border-color: #ffdc00;
       background: #800000;
@@ -175,7 +190,6 @@
       flex-shrink: 0; align-self: center; margin-top: 18px;
     }
     
-    /* ── TOMBOL SIMPAN TEBAKAN ── */
     .btn-confirm {
       width: 100%; padding: 10px;
       background: #990000;
@@ -458,12 +472,9 @@
     currentUser = { email, name };
     localStorage.setItem('pildun_user', JSON.stringify(currentUser));
     showSection('formSection');
-    // Render awal dengan state "Memuat..."
     renderMatches();
     
-    // Mulai tarik data di background
     loadConfig().then(() => {
-      // Render ulang setelah data didapat dari server
       renderMatches();
     });
   }
@@ -483,6 +494,7 @@
       showForm(email, name || email);
     } else {
       showSection('loginSection');
+      loadConfig();
     }
   };
 </script>
