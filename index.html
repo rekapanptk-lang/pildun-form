@@ -45,7 +45,6 @@
     .card-content {
       position: relative; z-index: 2;
       padding: 32px 28px 28px;
-      /* FIX: Tinggi dinamis agar tidak terpotong di HP */
       height: 85vh; 
       max-height: 650px; 
       min-height: 450px;
@@ -71,7 +70,7 @@
     }
     .google-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
 
-    /* ── INPUTS ── */
+    /* ── INPUTS (Background Merah & Border Putih) ── */
     label {
       display: block; font-size: 11px; font-weight: 700;
       color: rgba(255,255,255,0.8); margin-bottom: 5px;
@@ -80,28 +79,25 @@
     input[type=text], input[type=tel] {
       width: 100%; padding: 11px 14px;
       background: #990000;
-      border: 1.5px solid rgba(255,255,255,0.4);
+      border: 3px solid #ffffff;
       border-radius: 10px; font-size: 14px; font-weight: 500;
       color: white; outline: none;
-      transition: border 0.2s, background 0.2s;
+      transition: background 0.2s;
       font-family: inherit; margin-bottom: 14px;
     }
-    input[type=text]::placeholder,
-    input[type=tel]::placeholder { color: rgba(255,255,255,0.6); }
-    
-    input[type=text]:focus,
-    input[type=tel]:focus { border-color: rgba(255,255,255,0.9); background: #b30000; }
+    input[type=text]::placeholder, input[type=tel]::placeholder { color: rgba(255,255,255,0.6); }
+    input[type=text]:focus, input[type=tel]:focus { background: #b30000; }
     
     input[type=number] {
       width: 100%; padding: 10px;
       background: #990000;
-      border: 1.5px solid rgba(255,255,255,0.4);
+      border: 3px solid #ffffff;
       border-radius: 10px;
       text-align: center; font-size: 24px; font-weight: 700;
       color: white; outline: none; font-family: inherit;
-      transition: border 0.2s;
+      transition: background 0.2s;
     }
-    input[type=number]:focus { border-color: rgba(255,255,255,0.9); background: #b30000; }
+    input[type=number]:focus { background: #b30000; }
 
     input:-webkit-autofill {
       -webkit-box-shadow: 0 0 0 30px #990000 inset !important;
@@ -110,23 +106,22 @@
 
     .error-msg { color: #ffb3b3; font-size: 11px; margin-top: -10px; margin-bottom: 12px; }
 
-    /* ── MATCH CARDS (ACCORDION) ── */
+    /* ── MATCH CARDS (Background Merah & Border Putih) ── */
     .matches-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
 
     .match-card {
-      background: rgba(255,255,255,0.1);
-      border: 1.5px solid rgba(255,255,255,0.2);
+      background: #990000;
+      border: 3px solid #ffffff;
       border-radius: 12px; overflow: hidden;
       cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
+      transition: background 0.2s;
     }
     .match-card.active {
-      border-color: rgba(255,255,255,0.7);
-      background: rgba(255,255,255,0.16);
+      background: #b30000;
     }
     .match-card.done {
-      border-color: rgba(255,220,0,0.5);
-      background: rgba(255,200,0,0.08);
+      border-color: #ffdc00; /* Border kuning saat sudah disubmit agar membedakan */
+      background: #800000;
     }
 
     .match-header {
@@ -148,18 +143,16 @@
     .match-card.done  .match-checkbox-tick { display: block; }
 
     .match-title { font-weight: 700; font-size: 13px; color: white; flex: 1; }
-    .match-time  { font-size: 10px; color: rgba(255,255,255,0.55); white-space: nowrap; }
+    .match-time  { font-size: 10px; color: rgba(255,255,255,0.7); white-space: nowrap; }
 
-    /* Preview skor */
     .match-preview {
       display: none;
       padding: 4px 14px 10px;
-      font-size: 12px; color: rgba(255,220,0,0.9);
+      font-size: 12px; color: #ffdc00;
       font-weight: 600;
     }
     .match-card.done:not(.active) .match-preview { display: block; }
 
-    /* Score input section */
     .score-section {
       display: none;
       padding: 4px 14px 14px;
@@ -170,7 +163,7 @@
     .score-col { flex: 1; text-align: center; }
     .team-label {
       font-size: 10px; font-weight: 700;
-      color: rgba(255,255,255,0.75);
+      color: rgba(255,255,255,0.9);
       margin-bottom: 5px;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
@@ -181,24 +174,24 @@
       flex-shrink: 0; align-self: center; margin-top: 18px;
     }
     
-    /* FIX: Tombol Simpan Tebakan Merah Solid */
+    /* ── TOMBOL SIMPAN TEBAKAN ── */
     .btn-confirm {
       width: 100%; padding: 10px;
       background: #990000;
-      color: white; border: 1.5px solid rgba(255,255,255,0.4);
+      color: white; border: 3px solid #ffffff;
       border-radius: 8px; font-size: 13px; font-weight: 700;
       cursor: pointer; margin-top: 10px;
-      transition: background 0.15s, border-color 0.15s;
+      transition: background 0.15s;
     }
-    .btn-confirm:hover { background: #b30000; border-color: rgba(255,255,255,0.8); }
+    .btn-confirm:hover { background: #b30000; }
 
     /* ── SUBMIT BTN ── */
     .btn {
       width: 100%; padding: 14px;
-      background: linear-gradient(135deg, #ff4444 0%, #cc0000 60%, #990000 100%);
-      color: white; border: none; border-radius: 10px;
+      background: #990000;
+      color: white; border: 3px solid #ffffff; border-radius: 10px;
       font-size: 15px; font-weight: 700; cursor: pointer;
-      box-shadow: 0 4px 20px rgba(200,0,0,0.5);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
       transition: transform 0.15s, box-shadow 0.15s;
     }
     .btn:hover   { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(200,0,0,0.6); }
@@ -218,11 +211,8 @@
       justify-content: center;
     }
     
-    #loginSection {
-      align-items: center;
-    }
+    #loginSection { align-items: center; }
 
-    /* ── FADE TRANSITION ── */
     .fade-in { animation: fadeIn 0.4s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   </style>
@@ -262,39 +252,29 @@
       </div>
       <div class="error-msg" id="errMatch"></div>
 
-      <button class="btn" id="submitBtn" onclick="handleSubmit()">
-        📅 Submit & Hubungkan Calendar
-      </button>
+      <button class="btn" id="submitBtn" onclick="handleSubmit()">SUBMIT</button>
     </div>
 
   </div>
 </div>
 
 <script>
-  // URL untuk Apps Script, OAuth CLIENT_ID, dan URL dasar.
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1G85WVH53xRcoPsKNMlniRQXObUlvF47kegtaQlUptTnkclMngnWtRTApvVx4WwQ3/exec';
   const CLIENT_ID       = '69593145654-5c2n90v8f3cetmtjl91u7ua00rg7rub2.apps.googleusercontent.com';
   const BASE_URL        = 'https://pildun-form.vercel.app';
 
   let matches     = [];
   let currentUser = null;
-  let activeMatch = -1; // accordion — index yang sedang terbuka
+  let activeMatch = -1;
 
-  // ── Load config ──
   async function loadConfig() {
     try {
       const r = await fetch(APPS_SCRIPT_URL + '?action=getConfig');
       const d = await r.json();
       matches = d.data || [];
-      
-      const titleEl = document.getElementById('pageTitle');
-      const subtitleEl = document.getElementById('pageSubtitle');
-      if (d.title && titleEl)    titleEl.textContent    = d.title;
-      if (d.subtitle && subtitleEl) subtitleEl.textContent = d.subtitle;
     } catch(e) { matches = []; }
   }
 
-  // ── Render match accordion ──
   function renderMatches() {
     const list = document.getElementById('matchesList');
     if (!matches.length) {
@@ -327,7 +307,6 @@
     `).join('');
   }
 
-  // ── Toggle accordion ──
   function toggleMatch(i) {
     const card = document.getElementById('match-' + i);
 
@@ -347,7 +326,6 @@
     document.getElementById('errMatch').textContent = '';
   }
 
-  // ── Konfirmasi skor 1 match ──
   function confirmMatch(i) {
     const sA = document.getElementById('scoreA-' + i).value || '0';
     const sB = document.getElementById('scoreB-' + i).value || '0';
@@ -361,7 +339,6 @@
     activeMatch = -1;
   }
 
-  // ── Validasi ──
   function validateUserId(val) {
     if (!val || val.length < 4) return 'User ID minimal 4 karakter';
     if (!/^[a-zA-Z0-9]+$/.test(val)) return 'User ID hanya boleh huruf dan angka';
@@ -374,7 +351,6 @@
     return '';
   }
 
-  // ── Submit ──
   async function handleSubmit() {
     const userId = document.getElementById('userId').value.trim();
     const noHp   = document.getElementById('noHp').value.trim();
@@ -421,7 +397,7 @@
           window.location.href = '/success.html?status=success&name=' + encodeURIComponent(currentUser.name);
         } else {
           btn.disabled = false;
-          btn.textContent = '📅 Submit & Hubungkan Calendar';
+          btn.textContent = 'SUBMIT';
           alert('Gagal simpan data: ' + (saveData.error || 'Unknown'));
         }
         return;
@@ -449,7 +425,6 @@
       + '&state='        + state;
   }
 
-  // ── Show section helper ──
   function showSection(id) {
     ['splashSection','loginSection','formSection'].forEach(s => {
       const el = document.getElementById(s);
@@ -466,7 +441,6 @@
     }
   }
 
-  // ── Show form ──
   function showForm(email, name, animate) {
     currentUser = { email, name };
     localStorage.setItem('pildun_user', JSON.stringify(currentUser));
@@ -474,12 +448,10 @@
     renderMatches();
   }
 
-  // ── Google Login ──
   function loginGoogle() {
     window.location.href = '/api/auth?state=login';
   }
 
-  // ── Init ──
   window.onload = async function() {
     const params = new URLSearchParams(window.location.search);
     const email  = params.get('email');
