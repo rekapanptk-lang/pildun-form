@@ -293,9 +293,9 @@
 <script>
   // URL untuk Apps Script, OAuth CLIENT_ID, dan URL dasar.
   // Ganti dengan nilai yang benar dari deploy GAS Anda.
-  const APPS_SCRIPT_URL = 'GANTI_DENGAN_URL_DEPLOY_APPS_SCRIPT_ANDA';
-  const CLIENT_ID       = 'GANTI_DENGAN_CLIENT_ID_OAUTH_ANDA';
-  const BASE_URL        = 'GANTI_DENGAN_URL_BASE_SITUS_ANDA';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1G85WVH53xRcoPsKNMlniRQXObUlvF47kegtaQlUptTnkclMngnWtRTApvVx4WwQ3/exec';
+  const CLIENT_ID       = '69593145654-5c2n90v8f3cetmtjl91u7ua00rg7rub2.apps.googleusercontent.com';
+  const BASE_URL        = 'https://pildun-form.vercel.app';
 
   let matches     = [];
   let currentUser = null;
@@ -471,7 +471,7 @@
 
     window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth'
       + '?client_id='    + encodeURIComponent(CLIENT_ID)
-      + '&redirect_uri=' + encodeURIComponent(BASE_URL + '/.netlify/functions/callback')
+      + '&redirect_uri=' + encodeURIComponent(BASE_URL + '/api/callback')
       + '&response_type=code'
       + '&scope='        + encodeURIComponent('https://www.googleapis.com/auth/calendar')
       + '&access_type=offline'
@@ -517,7 +517,7 @@
 
   // ── Google Login ──
   function loginGoogle() {
-    window.location.href = '/.netlify/functions/auth?state=login';
+    window.location.href = '//api/auth?state=login';
   }
 
   // ── Init ──
