@@ -3,86 +3,683 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sumbutogel - Tebak Skor Gacor</title>
+  <title>Sumbutogel - Tebak Skor Piala Dunia FIFA 2026</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root { --dark-red: #1a0000; --accent-yellow: #ffdc00; }
+    /* ── ATRAKTIF: Variabel Warna Gacor ── */
+    :root {
+      --primary-red: #cc0000;
+      --dark-red: #1a0000;
+      --running-border-1: #ff0000;
+      --running-border-2: #ffdc00;
+      --running-border-3: #00ff00;
+      --running-border-4: #00ffff;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', Arial, sans-serif; min-height: 100vh; background: var(--dark-red); margin: 0; padding: 0; overflow-x: hidden; }
 
-    .card { position: relative; width: 100%; max-width: 600px; height: 100vh; display: flex; flex-direction: column; margin: 0 auto; overflow: hidden; }
-    .card-bg { position: absolute; inset: 0; background: url('bg.jpg') center top/cover no-repeat; z-index: 0; }
-    .card-overlay { position: absolute; inset: 0; background: rgba(150, 0, 0, 0.4); z-index: 1; transition: 0.5s; }
-    .card.login-active .card-overlay { opacity: 0; }
-    .card-content { position: relative; z-index: 2; padding: 32px 28px; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; }
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dark-red);
+      margin: 0;
+      padding: 0; 
+      overflow-x: hidden;
+    }
 
-    .logo-img { width: 260px; height: auto; display: block; margin: 0 auto 30px; }
-    
-    .google-btn {
-      width: 100%; padding: 15px; background: white; border: none; border-radius: 12px;
-      font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3); margin-top: auto;
+    /* ── ATRAKTIF: Running Border Effect pada Card Utama ── */
+    .card {
+      position: relative;
+      width: 100%;
+      max-width: 600px; 
+      height: 100vh; 
+      border-radius: 0; 
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      z-index: 1;
+      /* Border transparan untuk wadah running border */
+      border: 4px solid transparent; 
     }
     
-    input { width: 100%; padding: 12px 16px; background: #800000; border: 3px solid #ffffff; border-radius: 12px; color: white; margin-bottom: 15px; }
-    .btn { width: 100%; padding: 15px; background: var(--primary-red, #cc0000); color: white; border: 3px solid #ffffff; border-radius: 12px; font-weight: 700; cursor: pointer; }
+    /* Pseudo-element untuk Running Border */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      /* Gradasi pelangi untuk border */
+      background: conic-gradient(
+        var(--running-border-1), 
+        var(--running-border-2), 
+        var(--running-border-3), 
+        var(--running-border-4), 
+        var(--running-border-1)
+      );
+      animation: rotateBorder 4s linear infinite;
+      z-index: -2;
+    }
     
-    .match-card { background: #800000; border: 3px solid #ffffff; border-radius: 14px; margin-bottom: 10px; color: white; padding: 15px; cursor: pointer; }
-    .match-card.done { border-color: var(--accent-yellow); }
-    .error-msg { color: #ffb3b3; font-size: 11px; margin-bottom: 10px; }
+    /* Penutup bagian dalam agar hanya border yang kelihatan */
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0; /* Menempel ke border transparent tadi */
+      background: var(--dark-red);
+      z-index: -1;
+    }
+
+    @keyframes rotateBorder {
+      100% { transform: rotate(360deg); }
+    }
+
+    .card-bg {
+      position: absolute; 
+      inset: 0;
+      background-image: url('bg.jpg'); /* Pastikan file bg.jpg ada di folder yang sama */
+      background-size: cover; 
+      background-position: center top;
+      background-repeat: no-repeat;
+      z-index: 0;
+    }
+
+    .card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(200,0,0,0.70) 0%, rgba(140,0,0,0.70) 40%, rgba(80,0,0,0.80) 100%);
+      z-index: 1;
+    }
+
+    .card-content {
+      position: relative; z-index: 2;
+      padding: 32px 28px 28px;
+      height: 100vh; 
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.2) transparent;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-content::-webkit-scrollbar { width: 4px; }
+    .card-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+
+    /* UNTUK PC / TABLET BESAR */
+    @media (min-width: 600px) {
+      body { padding: 20px; }
+      .card { 
+        height: auto; 
+        max-width: 480px; 
+        border-radius: 24px; 
+        box-shadow: 0 32px 80px rgba(0,0,0,0.6); 
+        border: 5px solid transparent; /* Border sedikit lebih tebal di PC */
+      }
+      .card::after { border-radius: 20px; }
+      .card-content { 
+        height: 85vh; 
+        max-height: 800px; 
+        min-height: 500px; 
+      }
+    }
+
+    /* ── GOOGLE BTN ── */
+    .google-btn {
+      width: 100%; padding: 13px;
+      background: white; color: #333;
+      border: none; border-radius: 12px;
+      font-size: 14px; font-weight: 600;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      margin-top: auto; /* Taruh paling bawah content login */
+    }
+    .google-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,255,255,0.3); }
+
+    /* ── INPUTS INTERAKTIF ── */
+    label {
+      display: block; font-size: 11px; font-weight: 700;
+      color: rgba(255,255,255,0.8); margin-bottom: 6px;
+      text-transform: uppercase; letter-spacing: 0.8px;
+    }
+    input[type=text], input[type=tel] {
+      width: 100%; padding: 12px 16px;
+      background: #800000;
+      border: 3px solid #ffffff;
+      border-radius: 12px; font-size: 14px; font-weight: 500;
+      color: white; outline: none;
+      transition: all 0.2s ease;
+      font-family: inherit; margin-bottom: 16px;
+    }
+    input[type=text]::placeholder, input[type=tel]::placeholder { color: rgba(255,255,255,0.5); }
+    /* ATRAKTIF: Efek fokus input membesar dan bersinar */
+    input[type=text]:focus, input[type=tel]:focus { 
+      background: #a30000; 
+      border-color: #ffdc00;
+      transform: scale(1.02);
+      box-shadow: 0 0 15px rgba(255, 220, 0, 0.5);
+    }
+    
+    input[type=number] {
+      width: 100%; padding: 10px;
+      background: #800000;
+      border: 3px solid #ffffff;
+      border-radius: 12px;
+      text-align: center; font-size: 26px; font-weight: 700;
+      color: white; outline: none; font-family: inherit;
+      transition: all 0.2s ease;
+    }
+    input[type=number]:focus { 
+      background: #a30000;
+      border-color: #ffdc00;
+    }
+    /* ATRAKTIF: Sembunyikan spinner input number di berbagai browser */
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    input[type=number] { -moz-appearance: textfield; }
+
+    input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 30px #800000 inset !important;
+      -webkit-text-fill-color: white !important;
+    }
+
+    .error-msg { color: #ffb3b3; font-size: 11px; margin-top: -12px; margin-bottom: 14px; display: block;}
+
+    /* ── MATCH CARDS INTERAKTIF ── */
+    .matches-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
+
+    .match-card {
+      background: #800000;
+      border: 3px solid #ffffff;
+      border-radius: 14px; overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .match-card.active {
+      background: #a30000;
+      transform: scale(1.02);
+      border-color: #ffdc00;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    /* ATRAKTIF: Match Card DONE bersinar keemasan */
+    .match-card.done {
+      border-color: #ffdc00;
+      background: #5c0000;
+      box-shadow: 0 0 10px rgba(255, 220, 0, 0.4);
+      animation: pulseDone 2s infinite;
+    }
+
+    @keyframes pulseDone {
+      0% { box-shadow: 0 0 10px rgba(255, 220, 0, 0.4); }
+      50% { box-shadow: 0 0 20px rgba(255, 220, 0, 0.6); }
+      100% { box-shadow: 0 0 10px rgba(255, 220, 0, 0.4); }
+    }
+
+    .match-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px;
+      user-select: none;
+    }
+    .match-checkbox {
+      width: 18px; height: 18px; flex-shrink: 0;
+      border: 2px solid rgba(255,255,255,0.5);
+      border-radius: 5px; background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .match-card.active .match-checkbox,
+    .match-card.done  .match-checkbox { background: white; border-color: white; }
+    .match-checkbox-tick { color: var(--primary-red); font-size: 11px; font-weight: 900; display: none; }
+    .match-card.active .match-checkbox-tick,
+    .match-card.done  .match-checkbox-tick { display: block; }
+
+    .match-title { font-weight: 700; font-size: 13px; color: white; flex: 1; }
+    .match-time  { font-size: 10px; color: rgba(255,255,255,0.7); white-space: nowrap; }
+
+    .match-preview {
+      display: none;
+      padding: 4px 16px 12px;
+      font-size: 12px; color: #ffdc00;
+      font-weight: 600;
+    }
+    .match-card.done:not(.active) .match-preview { display: block; }
+
+    .score-section {
+      display: none;
+      padding: 4px 16px 16px;
+    }
+    .match-card.active .score-section { display: block; }
+
+    .score-row { display: flex; align-items: center; gap: 12px; }
+    .score-col { flex: 1; text-align: center; }
+    .team-label {
+      font-size: 10px; font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 6px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    /* ATRAKTIF: VS Badge Berdenyut */
+    .vs-badge {
+      background: rgba(255,255,255,0.2);
+      color: white; font-weight: 800; font-size: 12px;
+      padding: 6px 10px; border-radius: 8px;
+      flex-shrink: 0; align-self: center; margin-top: 20px;
+      animation: pulseVs 1.5s infinite;
+    }
+
+    @keyframes pulseVs {
+      0% { transform: scale(1); background: rgba(255,255,255,0.2); }
+      50% { transform: scale(1.1); background: rgba(255,255,255,0.3); }
+      100% { transform: scale(1); background: rgba(255,255,255,0.2); }
+    }
+    
+    /* ── TOMBOL SIMPAN TEBAKAN (Paling Sori & Tipis) ── */
+    .btn-confirm {
+      width: 100%; padding: 10px;
+      background: #a30000;
+      color: white; 
+      border: 1px solid #ffffff; /* FIX: Paling sori dan tipis */
+      border-radius: 10px; font-size: 13px; font-weight: 700;
+      cursor: pointer; margin-top: 12px;
+      transition: all 0.15s ease;
+    }
+    .btn-confirm:hover { background: #cc0000; transform: translateY(-1px); }
+
+    /* ── SUBMIT BTN INTERAKTIF ── */
+    .btn {
+      width: 100%; padding: 15px;
+      /* ATRAKTIF: Gradasi bergerak */
+      background: linear-gradient(270deg, #ff4444, #cc0000, #990000);
+      background-size: 600% 600%;
+      color: white; 
+      border: 3px solid #ffffff; 
+      border-radius: 12px;
+      font-size: 16px; font-weight: 700; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      transition: all 0.2s ease;
+      animation: moveGradient 4s ease infinite;
+    }
+    .btn:hover { 
+      transform: translateY(-2px); 
+      box-shadow: 0 8px 30px rgba(255, 68, 68, 0.4);
+      border-color: #ffdc00;
+    }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; animation: none;}
+
+    @keyframes moveGradient {
+        0%{background-position:0% 50%}
+        50%{background-position:100% 50%}
+        100%{background-position:0% 50%}
+    }
+
+    .divider { border: none; border-top: 1px solid rgba(255,255,255,0.15); margin: 16px 0; }
+
+    /* ── SECTIONS ── */
+    #splashSection { display: none; }
+    
+    #loginSection, #formSection {
+      display: none;
+      height: 100%;
+      width: 100%;
+      flex: 1;
+      flex-direction: column;
+    }
+    
+    #loginSection { 
+      align-items: center; 
+      justify-content: center; /* Konten login tetap di tengah layar */
+    }
+    
+    #formSection {
+      justify-content: flex-start; /* Form mulai dari atas */
+    }
+
+    .fade-in { animation: fadeIn 0.4s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── ATRAKTIF: Tombol Musik ── */
+    #musicControls {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      z-index: 100;
+    }
+    .btn-music {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid white;
+      color: white;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      transition: all 0.2s ease;
+    }
+    .btn-music:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.05); }
+    .btn-music.playing { border-color: #ffdc00; color: #ffdc00; animation: pulseMusic 2s infinite;}
+
+    @keyframes pulseMusic {
+      0% { box-shadow: 0 0 0 0 rgba(255, 220, 0, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 220, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 220, 0, 0); }
+    }
   </style>
 </head>
 <body>
+<audio id="bgMusic" src="https://cdn.pixabay.com/audio/2024/05/21/audio_415f33666d.mp3" loop></audio>
 
-<div class="card login-active">
+<div id="musicControls">
+  <button id="musicBtn" class="btn-music" onclick="toggleMusic()">🎵</button>
+</div>
+
+<div class="card">
   <div class="card-bg"></div>
   <div class="card-overlay"></div>
   <div class="card-content">
-    
-    <div id="loginSection" style="display:flex; flex-direction:column; height:100%;">
-      <a href="https://sumbu.link"><img src="https://dash.takenupload.org/GIf-SMBT-NEW-340" class="logo-img"></a>
+
+    <div id="loginSection" class="fade-in">
+      <div style="text-align:center; color:white; margin-bottom:30px">
+        <h1 style="font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:28px; letter-spacing:1px">Sumbutogel</h1>
+        <p style="font-size:12px; opacity:0.8">Tebak Skor Piala Dunia 2026</p>
+      </div>
       <button class="google-btn" onclick="loginGoogle()">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" width="20">
+        <svg width="20" height="20" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+        </svg>
         Lanjutkan dengan Google
       </button>
     </div>
 
-    <div id="formSection" style="display:none;">
-      <a href="https://sumbu.link"><img src="https://dash.takenupload.org/GIf-SMBT-NEW-340" class="logo-img"></a>
-      <label>USER ID *</label>
-      <input type="text" id="userId" placeholder="Minimal 4 karakter">
-      <label>NOMOR WHATSAPP *</label>
-      <input type="tel" id="noHp" placeholder="08xxxxxxxxxx">
-      <div id="matchesList"></div>
-      <button class="btn" onclick="submitData()">SUBMIT</button>
+    <div id="formSection" class="fade-in">
+      <div style="text-align:center; color:white; margin-bottom:20px; flex-shrink:0;">
+        <h1 style="font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:24px; letter-spacing:1px; color:#ffdc00">Sumbutogel</h1>
+      </div>
+
+      <label>User ID *</label>
+      <input type="text" id="userId" placeholder="Input User ID lo bray" maxlength="30">
+      <div class="error-msg" id="errUserId"></div>
+
+      <label>Nomor WhatsApp *</label>
+      <input type="tel" id="noHp" placeholder="08xxxxxxxxxx (min 10 digit)">
+      <div class="error-msg" id="errWa"></div>
+
+      <hr class="divider">
+
+      <label style="margin-bottom:12px; color:#ffdc00;">Pilih Pertandingan & Isi Tebakan</label>
+      <div class="matches-list" id="matchesList">
+        <div style="color:rgba(255,255,255,0.8);font-size:13px;text-align:center;padding:16px">⏳ Memuat pertandingan gacor...</div>
+      </div>
+      <div class="error-msg" id="errMatch"></div>
+
+      <button class="btn" id="submitBtn" onclick="handleSubmit()">SUBMIT</button>
     </div>
+
   </div>
 </div>
 
 <script>
-  // PASTIIN LINK INI BENAR SESUAI PUNYA LO BRAY
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1G85WVH53xRcoPsKNMlniRQXObUlvF47kegtaQlUptTnkclMngnWtRTApvVx4WwQ3/exec';
-  const CLIENT_ID = '69593145654-5c2n90v8f3cetmtjl91u7ua00rg7rub2.apps.googleusercontent.com';
-  const BASE_URL = 'https://pildun-form.vercel.app';
+  const CLIENT_ID       = '69593145654-5c2n90v8f3cetmtjl91u7ua00rg7rub2.apps.googleusercontent.com';
+  const BASE_URL        = 'https://pildun-form.vercel.app';
+
+  let matches     = [];
+  let currentUser = null;
+  let activeMatch = -1;
+  let isLoading   = true;
+
+  // ── MUSIK LOGIC ──
+  const music = document.getElementById('bgMusic');
+  const musicBtn = document.getElementById('musicBtn');
+  let isPlaying = false;
+
+  function toggleMusic() {
+    if (isPlaying) {
+      music.pause();
+      musicBtn.classList.remove('playing');
+      musicBtn.textContent = '🎵';
+    } else {
+      music.play().catch(error => {
+        alert("Waduh, browser lo blokir autoplay bray. Klik OK buat putar manual.");
+        music.play();
+      });
+      musicBtn.classList.add('playing');
+      musicBtn.textContent = '⏸️';
+    }
+    isPlaying = !isPlaying;
+  }
+
+  async function loadConfig() {
+    try {
+      const r = await fetch(APPS_SCRIPT_URL + '?action=getConfig');
+      const d = await r.json();
+      matches = d.data || [];
+      isLoading = false;
+    } catch(e) { 
+      matches = []; 
+      isLoading = false;
+    }
+  }
+
+  function renderMatches() {
+    const list = document.getElementById('matchesList');
+    
+    if (isLoading) {
+      list.innerHTML = '<div style="color:rgba(255,255,255,0.8);font-size:13px;text-align:center;padding:16px">⏳ Memuat pertandingan gacor...</div>';
+      return;
+    }
+    
+    if (!matches.length) {
+      list.innerHTML = '<div style="color:rgba(255,255,255,0.8);font-size:13px;text-align:center;padding:16px">Belum ada pertandingan tersedia bray</div>';
+      return;
+    }
+    
+    list.innerHTML = matches.map((m, i) => `
+      <div class="match-card" id="match-${i}" onclick="toggleMatch(${i})">
+        <div class="match-header">
+          <div class="match-checkbox"><span class="match-checkbox-tick">✓</span></div>
+          <div class="match-title">${m.pertandingan}</div>
+          <div class="match-time">${m.tanggal ? m.tanggal + ' ' + m.jam : m.jam || ''}</div>
+        </div>
+        <div class="match-preview" id="preview-${i}">Tebakan: 0 - 0</div>
+        <div class="score-section" onclick="event.stopPropagation()">
+          <div class="score-row">
+            <div class="score-col">
+              <div class="team-label">${m.timA}</div>
+              <input type="number" id="scoreA-${i}" min="0" max="20" placeholder="0">
+            </div>
+            <div class="vs-badge">VS</div>
+            <div class="score-col">
+              <div class="team-label">${m.timB}</div>
+              <input type="number" id="scoreB-${i}" min="0" max="20" placeholder="0">
+            </div>
+          </div>
+          <button class="btn-confirm" onclick="confirmMatch(${i})">✓ Simpan Tebakan</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function toggleMatch(i) {
+    const card = document.getElementById('match-' + i);
+
+    if (activeMatch !== -1 && activeMatch !== i) {
+      const prev = document.getElementById('match-' + activeMatch);
+      if (prev) prev.classList.remove('active');
+    }
+
+    if (activeMatch === i) {
+      card.classList.remove('active');
+      activeMatch = -1;
+    } else {
+      card.classList.add('active');
+      activeMatch = i;
+    }
+
+    document.getElementById('errMatch').textContent = '';
+  }
+
+  function confirmMatch(i) {
+    // FIX: Ambil value, jika kosong ubah jadi 0 bray
+    let sA = document.getElementById('scoreA-' + i).value;
+    let sB = document.getElementById('scoreB-' + i).value;
+    
+    if(sA === "") sA = "0";
+    if(sB === "") sB = "0";
+    
+    const card = document.getElementById('match-' + i);
+    const preview = document.getElementById('preview-' + i);
+
+    preview.textContent = 'Tebakan: ' + sA + ' - ' + sB;
+
+    card.classList.add('done');
+    card.classList.remove('active');
+    activeMatch = -1;
+  }
+
+  function validateUserId(val) {
+    if (!val || val.length < 4) return 'User ID minimal 4 karakter bray';
+    if (!/^[a-zA-Z0-9]+$/.test(val)) return 'User ID cuma boleh huruf & angka';
+    return '';
+  }
+  function validateWa(val) {
+    if (!val) return 'Nomor WA wajib diisi';
+    if (!/^\d+$/.test(val)) return 'Nomor WA cuma boleh angka';
+    if (val.length < 10) return 'Nomor WA minimal 10 digit';
+    return '';
+  }
+
+  async function handleSubmit() {
+    const userId = document.getElementById('userId').value.trim();
+    const noHp   = document.getElementById('noHp').value.trim();
+
+    const errUID = validateUserId(userId);
+    const errWA  = validateWa(noHp);
+    document.getElementById('errUserId').textContent = errUID;
+    document.getElementById('errWa').textContent     = errWA;
+    if (errUID || errWA) return;
+
+    const selected = matches.map((m, i) => {
+      const card = document.getElementById('match-' + i);
+      if (!card || !card.classList.contains('done')) return null;
+      
+      // Ambil value, jika kosong (placeholder) anggap 0
+      let sA = document.getElementById('scoreA-' + i)?.value;
+      let sB = document.getElementById('scoreB-' + i)?.value;
+      if(sA === "" || sA === undefined) sA = "0";
+      if(sB === "" || sB === undefined) sB = "0";
+      
+      return {
+        pertandingan: m.pertandingan,
+        timA: m.timA, timB: m.timB,
+        skorA: sA,
+        skorB: sB
+      };
+    }).filter(Boolean);
+
+    if (!selected.length) {
+      document.getElementById('errMatch').textContent = 'Pilih & simpan minimal 1 tebakan dulu bray';
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = '⏳ Memproses data gacor...';
+
+    try {
+      const checkRes = await fetch(APPS_SCRIPT_URL + '?action=checkEmail&email=' + encodeURIComponent(currentUser.email));
+      const checkData = await checkRes.json();
+
+      if (checkData.authorized) {
+        const saveRes = await fetch(APPS_SCRIPT_URL + '?action=saveOnly&' + new URLSearchParams({
+          email: currentUser.email,
+          nama:  currentUser.name,
+          userId, noHp,
+          matches: JSON.stringify(selected)
+        }));
+        const saveData = await saveRes.json();
+        if (saveData.success) {
+          window.location.href = '/success.html?status=success&name=' + encodeURIComponent(currentUser.name);
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'SUBMIT';
+          alert('Gagal simpan data: ' + (saveData.error || 'Unknown'));
+        }
+        return;
+      }
+    } catch(e) {
+      // Ignore
+    }
+
+    const state = encodeURIComponent([
+      'calendar',
+      currentUser.email,
+      currentUser.name,
+      userId,
+      noHp,
+      encodeURIComponent(JSON.stringify(selected))
+    ].join('|'));
+
+    window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth'
+      + '?client_id='    + encodeURIComponent(CLIENT_ID)
+      + '&redirect_uri=' + encodeURIComponent(BASE_URL + '/api/callback')
+      + '&response_type=code'
+      + '&scope='        + encodeURIComponent('https://www.googleapis.com/auth/calendar')
+      + '&access_type=offline'
+      + '&prompt=consent'
+      + '&state='        + state;
+  }
+
+  function showSection(id) {
+    ['loginSection','formSection'].forEach(s => {
+      const el = document.getElementById(s);
+      if (el) el.style.display = 'none';
+    });
+    const target = document.getElementById(id);
+    if (target) { 
+        target.style.display = 'flex';
+        target.classList.add('fade-in'); 
+    }
+  }
+
+  function showForm(email, name) {
+    currentUser = { email, name };
+    localStorage.setItem('pildun_user', JSON.stringify(currentUser));
+    showSection('formSection');
+    renderMatches();
+    
+    loadConfig().then(() => {
+      renderMatches();
+    });
+  }
 
   function loginGoogle() {
     window.location.href = '/api/auth?state=login';
   }
 
-  // Logika form & submit balikin ke fungsi asli lo
-  async function submitData() {
-    // Pastikan logika validasi & fetch ke APPS_SCRIPT_URL ada di sini
-    alert("Submit diproses..."); 
-  }
-
   window.onload = function() {
     const params = new URLSearchParams(window.location.search);
-    if(params.get('step') === 'form') {
-      document.querySelector('.card').classList.remove('login-active');
-      document.getElementById('loginSection').style.display = 'none';
-      document.getElementById('formSection').style.display = 'block';
+    const email  = params.get('email');
+    const name   = params.get('name');
+    const step   = params.get('step');
+
+    if (email && step === 'form') {
+      window.history.replaceState({}, '', '/');
+      showForm(email, name || email);
+    } else {
+      showSection('loginSection');
+      loadConfig();
     }
-  }
+  };
 </script>
 </body>
 </html>
