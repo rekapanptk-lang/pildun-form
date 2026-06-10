@@ -30,7 +30,7 @@
 
     .card-bg {
       position: absolute; inset: 0;
-      background-image: url('bg.jpg');
+      background-image: url('bg.jpg'); /* Ganti dengan URL gambar background yang benar */
       background-size: cover;
       background-position: center;
       z-index: 0;
@@ -49,13 +49,16 @@
       overflow-y: auto;
       scrollbar-width: thin;
       scrollbar-color: rgba(255,255,255,0.2) transparent;
+      /* Untuk menengahkan konten secara vertikal, kita akan gunakan flexbox di card-content */
+      display: flex;
+      flex-direction: column;
     }
     .card-content::-webkit-scrollbar { width: 4px; }
     .card-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
 
     /* ── HEADER ── */
-    .head { text-align: center; margin-bottom: 20px; }
-    .head .logo { font-size: 52px; margin-bottom: 6px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); }
+    .head { text-align: center; margin-bottom: 20px; flex-shrink: 0; }
+    /* Menghapus trofi dari header */
     .head h1 {
       font-family: 'Oswald', sans-serif;
       font-size: 22px; color: #fff;
@@ -64,63 +67,7 @@
     }
     .head p { font-size: 13px; color: rgba(255,255,255,0.75); margin-top: 6px; line-height: 1.5; }
 
-    /* ── SPLASH SCREEN ── */
-    #splashSection { display: block; }
-    .splash-anim {
-      text-align: center;
-      padding: 20px 0 28px;
-    }
-    .splash-anim .ball {
-      font-size: 64px;
-      display: inline-block;
-      animation: ballBounce 0.8s ease-in-out infinite alternate;
-      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
-    }
-    @keyframes ballBounce {
-      from { transform: translateY(0px) rotate(0deg); }
-      to   { transform: translateY(-18px) rotate(20deg); }
-    }
-    .splash-text {
-      font-family: 'Oswald', sans-serif;
-      font-size: 15px; color: rgba(255,255,255,0.8);
-      letter-spacing: 2px; text-transform: uppercase;
-      margin-top: 16px;
-      animation: fadeInOut 1.5s ease-in-out infinite;
-    }
-    @keyframes fadeInOut {
-      0%, 100% { opacity: 0.4; }
-      50%       { opacity: 1; }
-    }
-
-    /* ── STEP INFO ── */
-    .info {
-      background: rgba(255,255,255,0.12);
-      border-left: 3px solid rgba(255,255,255,0.5);
-      padding: 10px 14px; border-radius: 8px; margin-bottom: 20px;
-    }
-    .step { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; font-size: 12px; color: rgba(255,255,255,0.85); }
-    .step:last-child { margin-bottom: 0; }
-    .step .num {
-      background: rgba(255,255,255,0.25); color: white;
-      width: 20px; height: 20px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px; font-weight: 700; flex-shrink: 0;
-    }
-
-    /* ── TOMBOL TEBAK SKOR (di splash) ── */
-    .btn-tebak {
-      width: 100%; padding: 15px;
-      background: linear-gradient(135deg, #ff4444 0%, #cc0000 60%, #990000 100%);
-      color: white; border: none; border-radius: 10px;
-      font-size: 16px; font-weight: 700; cursor: pointer;
-      box-shadow: 0 4px 20px rgba(200,0,0,0.5);
-      letter-spacing: 0.5px;
-      transition: transform 0.15s, box-shadow 0.15s;
-      margin-top: 8px;
-    }
-    .btn-tebak:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(200,0,0,0.6); }
-
-    /* ── GOOGLE BTN ── */
+    /* ── GOOGLE BTN (Sederhana dan Sentral) ── */
     .google-btn {
       width: 100%; padding: 13px;
       background: white; color: #333;
@@ -130,6 +77,8 @@
       display: flex; align-items: center; justify-content: center; gap: 10px;
       transition: transform 0.15s, box-shadow 0.15s;
       box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      /* Memberikan margin atas agar lebih di tengah secara vertikal */
+      margin-top: 100px;
     }
     .google-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
 
@@ -281,7 +230,16 @@
     .divider { border: none; border-top: 1px solid rgba(255,255,255,0.15); margin: 14px 0; }
 
     /* ── SECTIONS ── */
-    #loginSection { display: none; }
+    /* Splash section disembunyikan secara default */
+    #splashSection { display: none; }
+    /* Login section akan ditampilkan dan diposisikan secara vertikal-center */
+    #loginSection {
+      display: none; /* JS akan mengubahnya menjadi flex */
+      height: 100%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
     #formSection  { display: none; }
 
     /* ── FADE TRANSITION ── */
@@ -295,31 +253,13 @@
   <div class="card-overlay"></div>
   <div class="card-content">
 
-    <!-- HEADER -->
     <div class="head">
-      <div class="logo">🏆</div>
       <h1 id="pageTitle">TEBAK SKOR PIALA DUNIA FIFA 2026</h1>
       <p id="pageSubtitle">Ikuti event tebak skor untuk beberapa pertandingan pilihan di Piala Dunia 2026</p>
+    }
     </div>
 
-    <!-- SPLASH SCREEN -->
-    <div id="splashSection">
-      <div class="splash-anim">
-        <div class="ball">⚽</div>
-        <div class="splash-text">Memuat pertandingan...</div>
-      </div>
-      <button class="btn-tebak" id="btnTebak" onclick="onTebakClick()" style="display:none">
-        ⚽ Tebak Skor Sekarang
-      </button>
-    </div>
-
-    <!-- LOGIN SECTION -->
     <div id="loginSection">
-      <div class="info">
-        <div class="step"><span class="num">1</span> Login dengan akun Google kamu</div>
-        <div class="step"><span class="num">2</span> Isi tebakan skor pertandingan</div>
-        <div class="step"><span class="num">3</span> Izinkan notifikasi ke Google Calendar (1x saja)</div>
-      </div>
       <button class="google-btn" onclick="loginGoogle()">
         <svg width="20" height="20" viewBox="0 0 24 24">
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -331,7 +271,6 @@
       </button>
     </div>
 
-    <!-- FORM SECTION -->
     <div id="formSection">
       <div class="user-bar">
         <div class="avatar" id="userAvatar">?</div>
@@ -367,9 +306,11 @@
 </div>
 
 <script>
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1G85WVH53xRcoPsKNMlniRQXObUlvF47kegtaQlUptTnkclMngnWtRTApvVx4WwQ3/exec';
-  const CLIENT_ID       = '69593145654-5c2n90v8f3cetmtjl91u7ua00rg7rub2.apps.googleusercontent.com';
-  const BASE_URL        = 'https://lovely-centaur-28e19a.netlify.app';
+  // URL untuk Apps Script, OAuth CLIENT_ID, dan URL dasar.
+  // Ganti dengan nilai yang benar dari deploy GAS Anda.
+  const APPS_SCRIPT_URL = 'GANTI_DENGAN_URL_DEPLOY_APPS_SCRIPT_ANDA';
+  const CLIENT_ID       = 'GANTI_DENGAN_CLIENT_ID_OAUTH_ANDA';
+  const BASE_URL        = 'GANTI_DENGAN_URL_BASE_SITUS_ANDA';
 
   let matches     = [];
   let currentUser = null;
@@ -384,29 +325,6 @@
       if (d.title)    document.getElementById('pageTitle').textContent    = d.title;
       if (d.subtitle) document.getElementById('pageSubtitle').textContent = d.subtitle;
     } catch(e) { matches = []; }
-
-    // Selesai load — tampilkan tombol Tebak Skor
-    const splash = document.querySelector('.splash-anim .splash-text');
-    if (splash) splash.textContent = matches.length ? 'Pertandingan siap!' : 'Belum ada pertandingan';
-    setTimeout(() => {
-      document.getElementById('btnTebak').style.display = 'block';
-    }, 1200);
-  }
-
-  // ── Klik tombol Tebak Skor ──
-  function onTebakClick() {
-    // Cek localStorage — sudah login sebelumnya?
-    const saved = localStorage.getItem('pildun_user');
-    if (saved) {
-      try {
-        const u = JSON.parse(saved);
-        currentUser = u;
-        showForm(u.email, u.name, false);
-        return;
-      } catch(e) {}
-    }
-    // Belum login — tampilkan login section
-    showSection('loginSection');
   }
 
   // ── Render match accordion ──
@@ -579,7 +497,15 @@
       if (el) el.style.display = 'none';
     });
     const target = document.getElementById(id);
-    if (target) { target.style.display = 'block'; target.classList.add('fade-in'); }
+    if (target) { 
+        // Menggunakan flex untuk login section agar sentral
+        if (id === 'loginSection') {
+            target.style.display = 'flex';
+        } else {
+            target.style.display = 'block';
+        }
+        target.classList.add('fade-in'); 
+    }
   }
 
   // ── Show form ──
@@ -597,8 +523,7 @@
   function logout() {
     localStorage.removeItem('pildun_user');
     currentUser = null;
-    showSection('splashSection');
-    document.getElementById('btnTebak').style.display = 'block';
+    showSection('loginSection');
   }
 
   // ── Google Login ──
@@ -608,7 +533,7 @@
 
   // ── Init ──
   window.onload = async function() {
-    // Load config di background
+    // Load config di background (opsional, jika masih diperlukan)
     loadConfig();
 
     // Cek apakah balik dari OAuth login
@@ -625,8 +550,8 @@
       return;
     }
 
-    // Tampilkan splash dulu
-    showSection('splashSection');
+    // Tampilkan login screen sentral secara langsung
+    showSection('loginSection');
   };
 </script>
 </body>
