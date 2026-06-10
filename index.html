@@ -6,94 +6,83 @@
   <title>Sumbutogel - Tebak Skor Gacor</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary-red: #cc0000;
-      --dark-red: #1a0000;
-      --accent-yellow: #ffdc00;
-    }
+    :root { --dark-red: #1a0000; --accent-yellow: #ffdc00; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', Arial, sans-serif; min-height: 100vh; background: var(--dark-red); margin: 0; padding: 0; overflow-x: hidden; }
 
-    body { font-family: 'Inter', Arial, sans-serif; min-height: 100vh; background: var(--dark-red); margin: 0; }
+    .card { position: relative; width: 100%; max-width: 600px; height: 100vh; display: flex; flex-direction: column; margin: 0 auto; overflow: hidden; }
+    .card-bg { position: absolute; inset: 0; background: url('bg.jpg') center top/cover no-repeat; z-index: 0; }
+    .card-overlay { position: absolute; inset: 0; background: rgba(150, 0, 0, 0.4); z-index: 1; transition: 0.5s; }
+    .card.login-active .card-overlay { opacity: 0; }
+    .card-content { position: relative; z-index: 2; padding: 32px 28px; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; }
 
-    .card {
-      position: relative; width: 100%; max-width: 480px; min-height: 100vh;
-      margin: 0 auto; overflow: hidden; background: #000;
-    }
-
-    /* Background Tetap JPG */
-    .card-bg { position: absolute; inset: 0; background: url('bg.jpg') center/cover; }
-
-    /* Overlay Merah Tipis (Sesuai request lo bray) */
-    .card-overlay {
-      position: absolute; inset: 0;
-      background: rgba(150, 0, 0, 0.4);
-      z-index: 1;
-    }
-
-    .card-content { position: relative; z-index: 2; padding: 40px 25px; }
-
-    /* GIF Logo Diperbesar & Elegan */
     .logo-img { width: 260px; height: auto; display: block; margin: 0 auto 30px; }
-
-    /* Tombol Google Atraksi (Glow + Pulse) */
+    
     .google-btn {
-      width: 100%; padding: 15px; background: white; border: none; border-radius: 50px;
-      font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.3);
-      animation: pulseBtn 2s infinite;
-      transition: 0.3s;
+      width: 100%; padding: 15px; background: white; border: none; border-radius: 12px;
+      font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3); margin-top: auto;
     }
-    @keyframes pulseBtn {
-      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.5); }
-      70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255,255,255,0); }
-      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0); }
-    }
-    .google-btn:hover { background: var(--accent-yellow); }
-
-    input { width: 100%; padding: 15px; background: rgba(0,0,0,0.5); border: 2px solid white; border-radius: 10px; color: white; margin-bottom: 15px; }
-    .btn-submit { width: 100%; padding: 15px; background: var(--accent-yellow); border: none; border-radius: 10px; font-weight: 800; cursor: pointer; }
+    
+    input { width: 100%; padding: 12px 16px; background: #800000; border: 3px solid #ffffff; border-radius: 12px; color: white; margin-bottom: 15px; }
+    .btn { width: 100%; padding: 15px; background: var(--primary-red, #cc0000); color: white; border: 3px solid #ffffff; border-radius: 12px; font-weight: 700; cursor: pointer; }
+    
+    .match-card { background: #800000; border: 3px solid #ffffff; border-radius: 14px; margin-bottom: 10px; color: white; padding: 15px; cursor: pointer; }
+    .match-card.done { border-color: var(--accent-yellow); }
+    .error-msg { color: #ffb3b3; font-size: 11px; margin-bottom: 10px; }
   </style>
 </head>
 <body>
 
-<div class="card">
+<div class="card login-active">
   <div class="card-bg"></div>
   <div class="card-overlay"></div>
-  
   <div class="card-content">
-    <div id="loginSection">
-      <a href="https://sumbu.link">
-        <img src="https://dash.takenupload.org/GIf-SMBT-NEW-340" alt="Sumbutogel" class="logo-img">
-      </a>
+    
+    <div id="loginSection" style="display:flex; flex-direction:column; height:100%;">
+      <a href="https://sumbu.link"><img src="https://dash.takenupload.org/GIf-SMBT-NEW-340" class="logo-img"></a>
       <button class="google-btn" onclick="loginGoogle()">
-        Login Lanjutkan dengan Google
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" width="20">
+        Lanjutkan dengan Google
       </button>
     </div>
 
     <div id="formSection" style="display:none;">
-      <img src="https://dash.takenupload.org/GIf-SMBT-NEW-340" alt="Sumbutogel" class="logo-img">
-      <input type="text" id="userId" placeholder="User ID">
+      <a href="https://sumbu.link"><img src="https://dash.takenupload.org/GIf-SMBT-NEW-340" class="logo-img"></a>
+      <label>USER ID *</label>
+      <input type="text" id="userId" placeholder="Minimal 4 karakter">
+      <label>NOMOR WHATSAPP *</label>
+      <input type="tel" id="noHp" placeholder="08xxxxxxxxxx">
       <div id="matchesList"></div>
-      <button class="btn-submit" onclick="submitData()">SIMPAN TEBAKAN</button>
+      <button class="btn" onclick="submitData()">SUBMIT</button>
     </div>
   </div>
 </div>
 
 <script>
-  // Script di sini akan menangani data match supaya gak hilang bray
-  async function loadMatches() {
-    try {
-      const response = await fetch('YOUR_APPS_SCRIPT_URL_HERE');
-      const data = await response.json();
-      if(!data || data.length === 0) throw new Error("Kosong");
-      // Render logic
-    } catch(e) {
-      document.getElementById('matchesList').innerHTML = "<p style='color:white; text-align:center'>Lagi update match gacor bray, sabar ya!</p>";
+  // PASTIIN LINK INI BENAR SESUAI PUNYA LO BRAY
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1G85WVH53xRcoPsKNMlniRQXObUlvF47kegtaQlUptTnkclMngnWtRTApvVx4WwQ3/exec';
+  const CLIENT_ID = '69593145654-5c2n90v8f3cetmtjl91u7ua00rg7rub2.apps.googleusercontent.com';
+  const BASE_URL = 'https://pildun-form.vercel.app';
+
+  function loginGoogle() {
+    window.location.href = '/api/auth?state=login';
+  }
+
+  // Logika form & submit balikin ke fungsi asli lo
+  async function submitData() {
+    // Pastikan logika validasi & fetch ke APPS_SCRIPT_URL ada di sini
+    alert("Submit diproses..."); 
+  }
+
+  window.onload = function() {
+    const params = new URLSearchParams(window.location.search);
+    if(params.get('step') === 'form') {
+      document.querySelector('.card').classList.remove('login-active');
+      document.getElementById('loginSection').style.display = 'none';
+      document.getElementById('formSection').style.display = 'block';
     }
   }
-  
-  function loginGoogle() { /* Logic Auth */ }
-  function submitData() { /* Logic Submit */ }
 </script>
-
 </body>
 </html>
