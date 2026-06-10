@@ -24,53 +24,40 @@
       align-items: center;
       justify-content: center;
       background: var(--dark-red);
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       overflow-x: hidden;
     }
 
     .card {
       position: relative;
-      width: 100%;
-      max-width: 600px;
+      width: 100%; max-width: 600px;
       height: 100vh;
       border-radius: 0;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
+      display: flex; flex-direction: column;
       z-index: 1;
       border: 4px solid transparent;
     }
-
     .card::before {
       content: '';
-      position: absolute;
-      top: -50%; left: -50%;
+      position: absolute; top: -50%; left: -50%;
       width: 200%; height: 200%;
       background: conic-gradient(var(--running-border-1), var(--running-border-2), var(--running-border-3), var(--running-border-4), var(--running-border-1));
       animation: rotateBorder 4s linear infinite;
       z-index: -2;
     }
-
     .card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--dark-red);
-      z-index: -1;
+      content: ''; position: absolute; inset: 0;
+      background: var(--dark-red); z-index: -1;
     }
-
     @keyframes rotateBorder { 100% { transform: rotate(360deg); } }
 
     .card-bg {
       position: absolute; inset: 0;
       background-image: url('bg.jpg');
-      background-size: cover;
-      background-position: center top;
-      background-repeat: no-repeat;
-      z-index: 0;
+      background-size: cover; background-position: center top;
+      background-repeat: no-repeat; z-index: 0;
     }
-
     .card-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(160deg, rgba(200,0,0,0.70) 0%, rgba(140,0,0,0.70) 40%, rgba(80,0,0,0.80) 100%);
@@ -79,55 +66,73 @@
 
     .card-content {
       position: relative; z-index: 2;
-      padding: 16px 28px 28px;
       height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center;
+      padding: 16px 24px 24px;
       overflow-y: auto;
       scrollbar-width: thin;
       scrollbar-color: rgba(255,255,255,0.2) transparent;
-      display: flex;
-      flex-direction: column;
     }
     .card-content::-webkit-scrollbar { width: 4px; }
     .card-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
 
     @media (min-width: 600px) {
       body { padding: 20px; }
-      .card {
-        height: auto; max-width: 480px;
-        border-radius: 24px;
-        box-shadow: 0 32px 80px rgba(0,0,0,0.6);
-        border: 5px solid transparent;
-      }
+      .card { height: auto; max-width: 480px; border-radius: 24px; box-shadow: 0 32px 80px rgba(0,0,0,0.6); border: 5px solid transparent; }
       .card::after { border-radius: 20px; }
       .card-content { height: 85vh; max-height: 800px; min-height: 500px; }
     }
 
-    /* GIF logo di atas */
+    /* GIF atas - sama di semua section */
     .logo-gif {
-      display: block;
-      max-width: 325px;
+      width: 325px;
+      max-width: 100%;
       height: auto;
-      margin: 0 auto 8px;
       flex-shrink: 0;
+      display: block;
+    }
+
+    /* SECTIONS */
+    #loginSection, #formSection {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Login: GIF atas, tombol di bawah center */
+    #loginSection {
+      flex: 1;
+      justify-content: space-between;
+      padding-bottom: 8px;
+    }
+
+    /* Form: GIF atas, form di tengah vertikal */
+    #formSection {
+      flex: 1;
+      justify-content: flex-start;
+    }
+
+    /* Spacer untuk tengahin form */
+    .form-spacer-top    { flex: 1; min-height: 8px; }
+    .form-spacer-bottom { flex: 1; min-height: 8px; }
+
+    /* Form body */
+    .form-body {
+      width: 100%;
     }
 
     .google-btn {
       width: 100%; padding: 13px;
       background: linear-gradient(145deg, #ffffff 0%, #e8e8e8 45%, #cfcfcf 100%);
-      color: #333;
-      border: 2px solid #d4af37;
-      border-radius: 12px;
-      font-size: 15px; font-weight: 700;
-      cursor: pointer;
+      color: #333; border: 2px solid #d4af37; border-radius: 12px;
+      font-size: 15px; font-weight: 700; cursor: pointer;
       display: flex; align-items: center; justify-content: center; gap: 10px;
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(212,175,55,0.3), inset 0 2px 5px rgba(255,255,255,1);
-      margin-top: auto;
     }
-    .google-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(212,175,55,0.5), inset 0 2px 5px rgba(255,255,255,1);
-    }
+    .google-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212,175,55,0.5); }
 
     label {
       display: block; font-size: 11px; font-weight: 700;
@@ -136,8 +141,7 @@
     }
     input[type=text], input[type=tel] {
       width: 100%; padding: 12px 16px;
-      background: #800000;
-      border: 3px solid #ffffff;
+      background: #800000; border: 3px solid #ffffff;
       border-radius: 12px; font-size: 14px; font-weight: 500;
       color: white; outline: none;
       transition: all 0.2s ease;
@@ -145,17 +149,14 @@
     }
     input[type=text]::placeholder, input[type=tel]::placeholder { color: rgba(255,255,255,0.5); }
     input[type=text]:focus, input[type=tel]:focus {
-      background: #a30000;
-      border-color: #ffdc00;
-      transform: scale(1.02);
-      box-shadow: 0 0 15px rgba(255,220,0,0.5);
+      background: #a30000; border-color: #ffdc00;
+      transform: scale(1.02); box-shadow: 0 0 15px rgba(255,220,0,0.5);
     }
     input[type=number] {
       width: 100%; padding: 10px;
-      background: #800000;
-      border: 3px solid #ffffff;
-      border-radius: 12px;
-      text-align: center; font-size: 26px; font-weight: 700;
+      background: #800000; border: 3px solid #ffffff;
+      border-radius: 12px; text-align: center;
+      font-size: 26px; font-weight: 700;
       color: white; outline: none; font-family: inherit;
       transition: all 0.2s ease;
     }
@@ -173,28 +174,21 @@
     .matches-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
 
     .match-card {
-      background: #800000;
-      border: 3px solid #ffffff;
+      background: #800000; border: 3px solid #ffffff;
       border-radius: 14px; overflow: hidden;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      cursor: pointer; transition: all 0.2s ease;
     }
     .match-card.active {
-      background: #a30000;
-      transform: scale(1.02);
-      border-color: #ffdc00;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      background: #a30000; transform: scale(1.02);
+      border-color: #ffdc00; box-shadow: 0 8px 24px rgba(0,0,0,0.3);
     }
     .match-card.done {
-      border-color: #ffdc00;
-      background: #5c0000;
-      box-shadow: 0 0 10px rgba(255,220,0,0.4);
+      border-color: #ffdc00; background: #5c0000;
       animation: pulseDone 2s infinite;
     }
     @keyframes pulseDone {
-      0%   { box-shadow: 0 0 10px rgba(255,220,0,0.4); }
-      50%  { box-shadow: 0 0 20px rgba(255,220,0,0.6); }
-      100% { box-shadow: 0 0 10px rgba(255,220,0,0.4); }
+      0%,100% { box-shadow: 0 0 10px rgba(255,220,0,0.4); }
+      50%      { box-shadow: 0 0 20px rgba(255,220,0,0.6); }
     }
 
     .match-header {
@@ -218,8 +212,7 @@
     .match-time  { font-size: 10px; color: rgba(255,255,255,0.7); white-space: nowrap; }
 
     .match-preview {
-      display: none;
-      padding: 4px 16px 12px;
+      display: none; padding: 4px 16px 12px;
       font-size: 12px; color: #ffdc00; font-weight: 600;
     }
     .match-card.done:not(.active) .match-preview { display: block; }
@@ -235,23 +228,21 @@
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .vs-badge {
-      background: rgba(255,255,255,0.2);
-      color: white; font-weight: 800; font-size: 12px;
-      padding: 6px 10px; border-radius: 8px;
-      flex-shrink: 0; align-self: center; margin-top: 20px;
+      background: rgba(255,255,255,0.2); color: white;
+      font-weight: 800; font-size: 12px; padding: 6px 10px;
+      border-radius: 8px; flex-shrink: 0; align-self: center; margin-top: 20px;
       animation: pulseVs 1.5s infinite;
     }
     @keyframes pulseVs {
-      0%   { transform: scale(1);   background: rgba(255,255,255,0.2); }
-      50%  { transform: scale(1.1); background: rgba(255,255,255,0.3); }
-      100% { transform: scale(1);   background: rgba(255,255,255,0.2); }
+      0%,100% { transform: scale(1);   background: rgba(255,255,255,0.2); }
+      50%      { transform: scale(1.1); background: rgba(255,255,255,0.3); }
     }
 
     .btn-confirm {
       width: 100%; padding: 10px;
       background: #a30000; color: white;
-      border: 1px solid #ffffff;
-      border-radius: 10px; font-size: 13px; font-weight: 700;
+      border: 1px solid #ffffff; border-radius: 10px;
+      font-size: 13px; font-weight: 700;
       cursor: pointer; margin-top: 12px;
       transition: all 0.15s ease;
     }
@@ -261,9 +252,7 @@
       width: 100%; padding: 15px;
       background: linear-gradient(270deg, #ff4444, #cc0000, #990000);
       background-size: 600% 600%;
-      color: white;
-      border: 3px solid #ffffff;
-      border-radius: 12px;
+      color: white; border: 3px solid #ffffff; border-radius: 12px;
       font-size: 16px; font-weight: 700; cursor: pointer;
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
       transition: all 0.2s ease;
@@ -272,41 +261,28 @@
     .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,68,68,0.4); border-color: #ffdc00; }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; animation: none; }
     @keyframes moveGradient {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      0%,100% { background-position: 0% 50%; }
+      50%      { background-position: 100% 50%; }
     }
 
     .divider { border: none; border-top: 1px solid rgba(255,255,255,0.15); margin: 16px 0; }
-
-    #loginSection, #formSection {
-      display: none;
-      width: 100%;
-      flex: 1;
-      flex-direction: column;
-    }
-    #loginSection { align-items: center; justify-content: center; }
-    #formSection  { justify-content: flex-start; }
 
     .fade-in { animation: fadeIn 0.4s ease-out; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
     #musicControls { position: fixed; bottom: 15px; right: 15px; z-index: 100; }
     .btn-music {
-      background: rgba(255,255,255,0.1);
-      border: 2px solid white; color: white;
-      border-radius: 50%; width: 40px; height: 40px;
+      background: rgba(255,255,255,0.1); border: 2px solid white;
+      color: white; border-radius: 50%; width: 40px; height: 40px;
       font-size: 18px; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: all 0.2s ease;
     }
     .btn-music:hover { background: rgba(255,255,255,0.2); transform: scale(1.05); }
     .btn-music.playing { border-color: #ffdc00; color: #ffdc00; animation: pulseMusic 2s infinite; }
     @keyframes pulseMusic {
-      0%   { box-shadow: 0 0 0 0 rgba(255,220,0,0.7); }
-      70%  { box-shadow: 0 0 0 10px rgba(255,220,0,0); }
-      100% { box-shadow: 0 0 0 0 rgba(255,220,0,0); }
+      0%,100% { box-shadow: 0 0 0 0 rgba(255,220,0,0.7); }
+      70%      { box-shadow: 0 0 0 10px rgba(255,220,0,0); }
     }
   </style>
 </head>
@@ -324,7 +300,6 @@
 
     <!-- LOGIN SECTION -->
     <div id="loginSection">
-      <!-- GIF di atas, ukuran lebih kecil agar tidak halangi tulisan -->
       <img src="https://dash.takenupload.org/GIf-SMBT-NEW-340" alt="Sumbutogel" class="logo-gif">
       <button class="google-btn" onclick="loginGoogle()">
         <svg width="20" height="20" viewBox="0 0 24 24">
@@ -339,26 +314,31 @@
 
     <!-- FORM SECTION -->
     <div id="formSection">
-      <!-- GIF kecil di atas form -->
-      <img src="https://dash.takenupload.org/GIf-SMBT-NEW-340" alt="Sumbutogel" class="logo-gif" style="max-width:120px; margin-bottom:12px;">
+      <img src="https://dash.takenupload.org/GIf-SMBT-NEW-340" alt="Sumbutogel" class="logo-gif">
 
-      <label>User ID *</label>
-      <input type="text" id="userId" placeholder="Input User ID lo bray" maxlength="30">
-      <div class="error-msg" id="errUserId"></div>
+      <div class="form-spacer-top"></div>
 
-      <label>Nomor WhatsApp *</label>
-      <input type="tel" id="noHp" placeholder="08xxxxxxxxxx (min 10 digit)">
-      <div class="error-msg" id="errWa"></div>
+      <div class="form-body">
+        <label>User ID *</label>
+        <input type="text" id="userId" placeholder="Input User ID lo bray" maxlength="30">
+        <div class="error-msg" id="errUserId"></div>
 
-      <hr class="divider">
+        <label>Nomor WhatsApp *</label>
+        <input type="tel" id="noHp" placeholder="08xxxxxxxxxx (min 10 digit)">
+        <div class="error-msg" id="errWa"></div>
 
-      <label style="margin-bottom:12px; color:#ffdc00;">Pilih Pertandingan & Isi Tebakan</label>
-      <div class="matches-list" id="matchesList">
-        <div style="color:rgba(255,255,255,0.8);font-size:13px;text-align:center;padding:16px">⏳ Memuat pertandingan gacor...</div>
+        <hr class="divider">
+
+        <label style="margin-bottom:12px; color:#ffdc00;">Pilih Pertandingan & Isi Tebakan</label>
+        <div class="matches-list" id="matchesList">
+          <div style="color:rgba(255,255,255,0.8);font-size:13px;text-align:center;padding:16px">⏳ Memuat pertandingan gacor...</div>
+        </div>
+        <div class="error-msg" id="errMatch"></div>
+
+        <button class="btn" id="submitBtn" onclick="handleSubmit()">KIRIM TEBAKAN SKOR SAYA</button>
       </div>
-      <div class="error-msg" id="errMatch"></div>
 
-      <button class="btn" id="submitBtn" onclick="handleSubmit()">KIRIM TEBAKAN SKOR SAYA</button>
+      <div class="form-spacer-bottom"></div>
     </div>
 
   </div>
@@ -374,7 +354,6 @@
   let activeMatch = -1;
   let isPlaying   = false;
 
-  // ── MUSIK ──
   const music    = document.getElementById('bgMusic');
   const musicBtn = document.getElementById('musicBtn');
 
@@ -384,34 +363,28 @@
       musicBtn.classList.remove('playing');
       musicBtn.textContent = '🎵';
     } else {
-      music.play().catch(() => music.play());
+      music.play().catch(() => {});
       musicBtn.classList.add('playing');
       musicBtn.textContent = '⏸️';
     }
     isPlaying = !isPlaying;
   }
 
-  // ── LOAD CONFIG ──
   async function loadConfig() {
     try {
       const r = await fetch(APPS_SCRIPT_URL + '?action=getConfig');
       const d = await r.json();
       matches = d.data || [];
-    } catch(e) {
-      matches = [];
-    }
+    } catch(e) { matches = []; }
   }
 
-  // ── RENDER MATCHES ──
   function renderMatches() {
     const list = document.getElementById('matchesList');
     if (!list) return;
-
     if (!matches.length) {
       list.innerHTML = '<div style="color:rgba(255,255,255,0.8);font-size:13px;text-align:center;padding:16px">Belum ada pertandingan tersedia bray</div>';
       return;
     }
-
     list.innerHTML = matches.map((m, i) => `
       <div class="match-card" id="match-${i}" onclick="toggleMatch(${i})">
         <div class="match-header">
@@ -438,7 +411,6 @@
     `).join('');
   }
 
-  // ── TOGGLE ACCORDION ──
   function toggleMatch(i) {
     if (activeMatch !== -1 && activeMatch !== i) {
       const prev = document.getElementById('match-' + activeMatch);
@@ -455,13 +427,9 @@
     document.getElementById('errMatch').textContent = '';
   }
 
-  // ── CONFIRM MATCH ──
   function confirmMatch(i) {
-    let sA = document.getElementById('scoreA-' + i).value;
-    let sB = document.getElementById('scoreB-' + i).value;
-    if (sA === '') sA = '0';
-    if (sB === '') sB = '0';
-
+    let sA = document.getElementById('scoreA-' + i).value || '0';
+    let sB = document.getElementById('scoreB-' + i).value || '0';
     document.getElementById('preview-' + i).textContent = 'Tebakan: ' + sA + ' - ' + sB;
     const card = document.getElementById('match-' + i);
     card.classList.add('done');
@@ -469,7 +437,6 @@
     activeMatch = -1;
   }
 
-  // ── VALIDASI ──
   function validateUserId(val) {
     if (!val || val.length < 4) return 'User ID minimal 4 karakter bray';
     if (!/^[a-zA-Z0-9]+$/.test(val)) return 'User ID cuma boleh huruf & angka';
@@ -482,9 +449,7 @@
     return '';
   }
 
-  // ── SUBMIT ──
   async function handleSubmit() {
-    // Guard: pastikan currentUser ada
     if (!currentUser || !currentUser.email) {
       alert('Session habis bray, silakan login ulang.');
       showSection('loginSection');
@@ -518,7 +483,6 @@
     btn.disabled = true;
     btn.textContent = '⏳ Memproses data gacor...';
 
-    // Cek apakah sudah authorized
     try {
       const checkRes  = await fetch(APPS_SCRIPT_URL + '?action=checkEmail&email=' + encodeURIComponent(currentUser.email));
       const checkData = await checkRes.json();
@@ -540,14 +504,9 @@
       }
     } catch(e) { /* lanjut OAuth */ }
 
-    // Belum authorized — OAuth Calendar
     const state = encodeURIComponent([
-      'calendar',
-      currentUser.email,
-      currentUser.name,
-      userId,
-      noHp,
-      encodeURIComponent(JSON.stringify(selected))
+      'calendar', currentUser.email, currentUser.name,
+      userId, noHp, encodeURIComponent(JSON.stringify(selected))
     ].join('|'));
 
     window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth'
@@ -560,7 +519,6 @@
       + '&state='        + state;
   }
 
-  // ── SHOW SECTION ──
   function showSection(id) {
     ['loginSection', 'formSection'].forEach(s => {
       const el = document.getElementById(s);
@@ -573,7 +531,6 @@
     }
   }
 
-  // ── SHOW FORM ──
   function showForm(email, name) {
     currentUser = { email, name };
     localStorage.setItem('pildun_user', JSON.stringify(currentUser));
@@ -581,14 +538,11 @@
     renderMatches();
   }
 
-  // ── LOGIN ──
   function loginGoogle() {
     window.location.href = '/api/auth?state=login';
   }
 
-  // ── INIT ──
   window.onload = async function() {
-    // Load config dulu sebelum apapun
     await loadConfig();
 
     const params = new URLSearchParams(window.location.search);
@@ -596,14 +550,12 @@
     const name   = params.get('name');
     const step   = params.get('step');
 
-    // Balik dari OAuth login
     if (email && step === 'form') {
       window.history.replaceState({}, '', window.location.pathname);
       showForm(email, name || email);
       return;
     }
 
-    // Cek localStorage — sudah pernah login
     const saved = localStorage.getItem('pildun_user');
     if (saved) {
       try {
@@ -612,12 +564,9 @@
           showForm(u.email, u.name || u.email);
           return;
         }
-      } catch(e) {
-        localStorage.removeItem('pildun_user');
-      }
+      } catch(e) { localStorage.removeItem('pildun_user'); }
     }
 
-    // Belum login — tampilkan login screen
     showSection('loginSection');
   };
 </script>
