@@ -45,7 +45,10 @@
     .card-content {
       position: relative; z-index: 2;
       padding: 32px 28px 28px;
-      height: 620px;
+      /* FIX: Tinggi dinamis agar tidak terpotong di HP */
+      height: 85vh; 
+      max-height: 650px; 
+      min-height: 450px;
       overflow-y: auto;
       scrollbar-width: thin;
       scrollbar-color: rgba(255,255,255,0.2) transparent;
@@ -55,7 +58,7 @@
     .card-content::-webkit-scrollbar { width: 4px; }
     .card-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
 
-    /* ── GOOGLE BTN (Sederhana dan Sentral) ── */
+    /* ── GOOGLE BTN ── */
     .google-btn {
       width: 100%; padding: 13px;
       background: white; color: #333;
@@ -177,15 +180,17 @@
       padding: 5px 8px; border-radius: 8px;
       flex-shrink: 0; align-self: center; margin-top: 18px;
     }
+    
+    /* FIX: Tombol Simpan Tebakan Merah Solid */
     .btn-confirm {
-      width: 100%; padding: 9px;
-      background: rgba(255,255,255,0.2);
-      color: white; border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 8px; font-size: 13px; font-weight: 600;
+      width: 100%; padding: 10px;
+      background: #990000;
+      color: white; border: 1.5px solid rgba(255,255,255,0.4);
+      border-radius: 8px; font-size: 13px; font-weight: 700;
       cursor: pointer; margin-top: 10px;
-      transition: background 0.15s;
+      transition: background 0.15s, border-color 0.15s;
     }
-    .btn-confirm:hover { background: rgba(255,255,255,0.3); }
+    .btn-confirm:hover { background: #b30000; border-color: rgba(255,255,255,0.8); }
 
     /* ── SUBMIT BTN ── */
     .btn {
@@ -214,7 +219,7 @@
     }
     
     #loginSection {
-      align-items: center; /* Center horizontally only for login button */
+      align-items: center;
     }
 
     /* ── FADE TRANSITION ── */
@@ -476,7 +481,6 @@
 
   // ── Init ──
   window.onload = async function() {
-    // FIX: URLSearchParams yang benar agar tidak error
     const params = new URLSearchParams(window.location.search);
     const email  = params.get('email');
     const name   = params.get('name');
@@ -484,11 +488,9 @@
 
     if (email && step === 'form') {
       window.history.replaceState({}, '', '/');
-      // Tunggu load data dulu sebelum masukin ke form
       await loadConfig(); 
       showForm(email, name || email, true);
     } else {
-      // Tombol Google langsung muncul instan
       showSection('loginSection');
       loadConfig();
     }
