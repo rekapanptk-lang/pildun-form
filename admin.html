@@ -404,10 +404,17 @@
       showProgress(70);
 
       const params = new URLSearchParams({
-        action: 'sendEvent', title, start, end, desc, reminder, mode, specific,
+        action:      'sendEvent',
+        title:       title,
+        start:       start,
+        end:         end,
+        desc:        desc,
+        reminder:    reminder,
+        mode:        mode,
+        specific:    specific,
         attachments: JSON.stringify(driveFiles)
       });
-      const r = await fetch(APPS_SCRIPT_URL + '?' + params);
+      const r = await fetch(APPS_SCRIPT_URL + '?' + params.toString());
       const d = await r.json();
 
       showProgress(100);
